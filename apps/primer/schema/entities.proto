@@ -1,0 +1,188 @@
+syntax = "proto3";
+package pronto.entities;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
+
+message Cell {
+  optional string id = 1 [json_name = "id"];
+  optional string ground = 2 [json_name = "ground"];
+  optional string reader = 3 [json_name = "reader"];
+  optional string contrast = 4 [json_name = "contrast"];
+  optional string theme = 5 [json_name = "theme"];
+  optional string published = 6 [json_name = "published"];
+}
+
+message Census {
+  optional string id = 1 [json_name = "id"];
+  optional string fact = 2 [json_name = "fact"];
+  optional int32 count = 3 [json_name = "count"];
+  optional string says = 4 [json_name = "says"];
+}
+
+message Claim {
+  optional string id = 1 [json_name = "id"];
+  optional string kind = 2 [json_name = "kind"];
+  optional string says = 3 [json_name = "says"];
+  optional string reads = 4 [json_name = "reads"];
+  optional string departs = 5 [json_name = "departs"];
+  optional string probe = 6 [json_name = "probe"];
+  optional int32 pos = 7 [json_name = "pos"];
+}
+
+message Cursor {
+  optional string id = 1 [json_name = "id"];
+  optional string reader = 2 [json_name = "reader"];
+}
+
+message Floor {
+  optional string id = 1 [json_name = "id"];
+  optional int32 value = 2 [json_name = "value"];
+  optional string applies = 3 [json_name = "applies"];
+  optional string source = 4 [json_name = "source"];
+  optional string says = 5 [json_name = "says"];
+  optional int32 pos = 6 [json_name = "pos"];
+}
+
+message Fold {
+  optional string id = 1 [json_name = "id"];
+  optional string note = 2 [json_name = "note"];
+  optional string error = 3 [json_name = "error"];
+}
+
+message Opposition {
+  optional string id = 1 [json_name = "id"];
+  optional string segment = 2 [json_name = "segment"];
+  optional string family = 3 [json_name = "family"];
+  optional string left_token = 4 [json_name = "left_token"];
+  optional string right_token = 5 [json_name = "right_token"];
+  optional string specimen = 6 [json_name = "specimen"];
+  optional string specimen_says = 7 [json_name = "specimen_says"];
+  optional string graded = 8 [json_name = "graded"];
+  optional string declined = 9 [json_name = "declined"];
+  optional int32 pos = 10 [json_name = "pos"];
+}
+
+message Pairing {
+  optional string id = 1 [json_name = "id"];
+  optional string ground_token = 2 [json_name = "ground_token"];
+  optional string ink_token = 3 [json_name = "ink_token"];
+  optional string semantic = 4 [json_name = "semantic"];
+  optional string klass = 5 [json_name = "klass"];
+  optional int32 threshold_filed = 6 [json_name = "threshold_filed"];
+  optional string ambiguous = 7 [json_name = "ambiguous"];
+  optional int32 pos = 8 [json_name = "pos"];
+}
+
+message Ratio {
+  optional string id = 1 [json_name = "id"];
+  optional string pairing = 2 [json_name = "pairing"];
+  optional string theme = 3 [json_name = "theme"];
+  optional string ground_color = 4 [json_name = "ground_color"];
+  optional string ink_color = 5 [json_name = "ink_color"];
+  optional int32 ratio = 6 [json_name = "ratio"];
+  optional string verdict_text = 7 [json_name = "verdict_text"];
+  optional string verdict_ui = 8 [json_name = "verdict_ui"];
+  optional string ambiguous = 9 [json_name = "ambiguous"];
+}
+
+message Reader {
+  optional string id = 1 [json_name = "id"];
+  optional string name = 2 [json_name = "name"];
+  optional string says = 3 [json_name = "says"];
+  optional string severity = 4 [json_name = "severity"];
+  optional int32 m00 = 5 [json_name = "m00"];
+  optional int32 m01 = 6 [json_name = "m01"];
+  optional int32 m02 = 7 [json_name = "m02"];
+  optional int32 m10 = 8 [json_name = "m10"];
+  optional int32 m11 = 9 [json_name = "m11"];
+  optional int32 m12 = 10 [json_name = "m12"];
+  optional int32 m20 = 11 [json_name = "m20"];
+  optional int32 m21 = 12 [json_name = "m21"];
+  optional int32 m22 = 13 [json_name = "m22"];
+  optional string citation = 14 [json_name = "citation"];
+  optional int32 pos = 15 [json_name = "pos"];
+}
+
+message Reading {
+  optional string id = 1 [json_name = "id"];
+  optional string opposition = 2 [json_name = "opposition"];
+  optional string specimen = 3 [json_name = "specimen"];
+  optional string theme = 4 [json_name = "theme"];
+  optional string reader = 5 [json_name = "reader"];
+  optional string left_color = 6 [json_name = "left_color"];
+  optional string right_color = 7 [json_name = "right_color"];
+  optional string left_seen = 8 [json_name = "left_seen"];
+  optional string right_seen = 9 [json_name = "right_seen"];
+  optional string ground = 10 [json_name = "ground"];
+  optional int32 separation = 11 [json_name = "separation"];
+  optional int32 floor = 12 [json_name = "floor"];
+  optional string verdict = 13 [json_name = "verdict"];
+  optional int32 delta = 14 [json_name = "delta"];
+  optional int32 pos = 15 [json_name = "pos"];
+  optional string painted = 16 [json_name = "painted"];
+}
+
+message Score {
+  optional string id = 1 [json_name = "id"];
+  optional string theme = 2 [json_name = "theme"];
+  optional string reader = 3 [json_name = "reader"];
+  optional int32 holds = 4 [json_name = "holds"];
+  optional int32 fails = 5 [json_name = "fails"];
+  optional int32 improved = 6 [json_name = "improved"];
+  optional int32 regressed = 7 [json_name = "regressed"];
+  optional int32 unchanged = 8 [json_name = "unchanged"];
+}
+
+message Segment {
+  optional string id = 1 [json_name = "id"];
+  optional string left = 2 [json_name = "left"];
+  optional string right = 3 [json_name = "right"];
+  optional string says = 4 [json_name = "says"];
+  optional int32 pos = 5 [json_name = "pos"];
+}
+
+message Theme {
+  optional string id = 1 [json_name = "id"];
+  optional string ground = 2 [json_name = "ground"];
+  optional string reader = 3 [json_name = "reader"];
+  optional string contrast = 4 [json_name = "contrast"];
+  optional string base = 5 [json_name = "base"];
+  optional string wearable = 6 [json_name = "wearable"];
+  optional string twin = 7 [json_name = "twin"];
+  optional string wears = 8 [json_name = "wears"];
+  optional string bg_default = 9 [json_name = "bg_default"];
+  optional string bg_muted = 10 [json_name = "bg_muted"];
+  optional string border_default = 11 [json_name = "border_default"];
+  optional string fg_default = 12 [json_name = "fg_default"];
+  optional string fg_muted = 13 [json_name = "fg_muted"];
+  optional string fg_accent = 14 [json_name = "fg_accent"];
+  optional string fg_danger = 15 [json_name = "fg_danger"];
+  optional int32 pos = 16 [json_name = "pos"];
+}
+
+message Token {
+  optional string id = 1 [json_name = "id"];
+  optional string theme = 2 [json_name = "theme"];
+  optional string name = 3 [json_name = "name"];
+  optional string raw = 4 [json_name = "raw"];
+  optional string kind = 5 [json_name = "kind"];
+  optional string target = 6 [json_name = "target"];
+  optional string chain = 7 [json_name = "chain"];
+  optional string resolved = 8 [json_name = "resolved"];
+  optional string composited = 9 [json_name = "composited"];
+  optional string type = 10 [json_name = "type"];
+  optional string describes = 11 [json_name = "describes"];
+  optional int32 pos = 12 [json_name = "pos"];
+}
+
+message TypeRung {
+  optional string id = 1 [json_name = "id"];
+  optional string purpose = 2 [json_name = "purpose"];
+  optional string value = 3 [json_name = "value"];
+  optional string resolved = 4 [json_name = "resolved"];
+  optional string dimension = 5 [json_name = "dimension"];
+  optional string coincides = 6 [json_name = "coincides"];
+  optional int32 pos = 7 [json_name = "pos"];
+}

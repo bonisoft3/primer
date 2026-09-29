@@ -1,0 +1,41 @@
+# generated from bayt.cue — do not edit
+services:
+  apps_primer-launch:
+    build:
+      additional_contexts:
+        apps_primer-caddy: service:apps_primer-caddy
+      context: ..
+      dockerfile: .bayt/Dockerfile.launch
+      target: launch
+      args:
+        BUILDKIT_SYNTAX: >-
+          docker/dockerfile:1.26@sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32
+    depends_on:
+      apps_primer-caddy:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test:
+      - CMD
+      - echo
+      - primer is healthy
+      interval: 5s
+      timeout: 2s
+      retries: 3
+    image: bayt-apps_primer-launch:${BAYT_IMAGE_TAG:-latest}
+    networks:
+      default:
+        aliases:
+        - launch
+  apps_primer-launch_bayt:
+    build:
+      additional_contexts:
+        apps_primer-caddy_bayt: service:apps_primer-caddy_bayt
+      context: ..
+      dockerfile: .bayt/Dockerfile.launch
+      target: launch_bayt
+      args:
+        BUILDKIT_SYNTAX: >-
+          docker/dockerfile:1.26@sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32
+    image: bayt-apps_primer-launch_bayt:latest
+    scale: 0

@@ -1,0 +1,52 @@
+# Told Apart — acceptance
+
+- Opening the app lands on the fourteen themes with their grounds, their readers and their contrasts, and nothing to sign in to. {#accept-roster-names-the-fourteen}
+- Each theme's row carries how many of its semantic oppositions the reader it is named for can tell apart and how many it cannot, computed before the reader touches a control. {#accept-roster-settles-cold}
+- The four cells of the ground-by-reader-by-contrast cross the vendor does not publish are rows saying they are missing, and all four name the same ground. {#accept-missing-cells-are-rows}
+- The two themes that can be neither half of a pronto identity are marked as such, and no light half is invented for either. {#accept-orphan-grounds-marked}
+- The theme pair this app wears is marked on the roster as the one it wears, and it is the pair the app's own audit recommends. {#accept-adopted-pair-named}
+- Opening a theme opens its audit on that theme, and the colours on it are that theme's rather than the ones the previous reader left. {#accept-theme-opens-audit}
+- Each of the fourteen themes has its own address, and two addresses that name different themes never paint the same specimens. {#accept-routes-distinct}
+- Every opposition is drawn as the two interface elements it actually is, painted in the theme's own values, with no literal colour anywhere in any stylesheet. {#accept-specimens-are-elements}
+- Each opposition carries four separations — the trichromat's and the three dichromats' — each against the floor it is held to. {#accept-four-readings-per-pair}
+- Each separation says how far it moved from the same opposition in this theme's base, and a variant that moved nothing says so. {#accept-delta-from-base}
+- The reader control repaints every specimen on the screen as that reader sees it, and every simulated colour is marked as simulated. {#accept-simulate-repaints}
+- The opposition roster is derived from token names by the stated segment rule, and a pair the rule admits with no honest specimen is a declined row carrying its reason. {#accept-pairs-derived-not-listed}
+- A pair whose two members are the same bytes in all fourteen themes is shown, is not graded for separation, and the screen says why the ink is not the discriminator. {#accept-identical-pairs-ungraded}
+- Every measured colour is composited over its own theme's default ground before it is measured, and that ground is on the screen. {#accept-alpha-composited}
+- An alias is resolved within its own theme, and the resolution chain is on the screen for every token that is one. {#accept-alias-resolved-in-theme}
+- One opposition opens on its own screen carrying all fourteen readings in a column ordered by ground, rather than the one theme the audit shows. {#accept-opposition-across-themes}
+- In light, every graded opposition sits below the floor for a red-green dichromat, and the screen states that figure rather than leaving it to be counted. {#accept-light-fails-red-green}
+- light-high-contrast fails exactly the same set of oppositions as light under red-green, so the contrast axis buys no separation, and both rows are on one screen. {#accept-high-contrast-orthogonal}
+- light to light-colorblind improves every graded opposition under red-green and regresses none. {#accept-colorblind-improves}
+- light to light-tritanopia both improves and regresses under tritanopia, and the open-against-closed family is among the regressions. {#accept-tritanopia-trades}
+- light-colorblind has tritanopia separations below the floor where light has none, so no theme in the corpus holds both axes. {#accept-no-theme-holds-both}
+- The dimmed ground is the worst theme in the corpus on separation and its high-contrast sibling fixes none of it, and the roster shows both. {#accept-dimmed-worst}
+- The pairing sheet carries Primer's published matrix, one row per obligation per theme, each drawn as the text it would be. {#accept-pairing-matrix-drawn}
+- Every pairing row carries its ratio and its verdict against both published thresholds, and says which threshold the vendor's guide files it under. {#accept-both-thresholds-printed}
+- The dimmed ground misses the higher published ratio on every muted pairing it has, and each miss is a stated departure rather than a pass or an error. {#accept-dimmed-muted-departure}
+- The declarations screen shows every column the audit reads, and the nominated theme is shown entire. {#accept-declarations-every-column}
+- The screen says which tokens the app does not hold and by which rule, rather than presenting its closure as the whole system. {#accept-closure-stated}
+- A token that is a literal in one theme and an alias in another is visible as both, and so is an alias that points somewhere different in every theme. {#accept-value-class-changes}
+- The categorical chart colours are the same bytes in all fourteen themes, so the reader axis never reaches them; the app records the number and grades nothing on it. {#accept-chart-palette-invariant}
+- Nothing anywhere in the app writes to a token, a theme or a reading, and no screen offers to. {#accept-read-only}
+- The specification carries the vendor's claim, this app's reading and the verdict in three separate columns, never merged into one. {#accept-spec-three-columns}
+- The published pairing rule and the threshold table are quoted verbatim and set as quotations rather than tidied into prose. {#accept-spec-verbatim}
+- The three simulation matrices, their citation and their severity are on the screen, and the separation floors carry where each came from. {#accept-spec-method-stated}
+- Every language finding on the specification screen carries the probe that measured it, and no row claims what the design vocabulary refuses without asking cue. {#accept-findings-are-measured}
+- The design vocabulary holds one identity in two appearances: a third appearance bucket and a second named identity are both refused, and the refusal is the measured message. {#accept-one-identity-two-appearances}
+- Six of the fourteen themes pair into twins by reader and contrast, two have no light half, and the join that produces those numbers is on the screen. {#accept-twin-closure-asymmetry}
+- For the pair this app wears, a swatch painted from a row and the chrome painted from a design token resolve to the same colour in both appearances. {#accept-adopted-pair-agrees}
+- No verdict on any screen is distinguishable by colour alone: every verdict carries a word, and the screen says the app's own audit is why. {#accept-verdict-is-a-word}
+- The app names every type purpose it uses, and the screen prints which of those purposes coincide with a vendored rung and which the ladders have no step for. {#accept-type-roles-named}
+- A type role at a rung's value shadows that rung in this app's literal vocabulary, and the count is measured off the emitted stylesheet rather than written beside it. {#accept-type-role-shadows-rung}
+- Every separation the app prints equals the separation an independent route computes from the vendored bytes, to the precision the app states. {#accept-numbers-agree-with-oracle}
+- Every graded separation equals the separation recomputed from the colours a browser actually painted on the specimens, in both appearances. {#accept-paint-is-graded}
+- Every published claim is asked of the app by something that runs, every number the app shows answers one, and every reading the ground truth answers is shown by some screen. {#accept-every-anti-join}
+- Each anti-join is driven to red on a doctored input by its own case, so a check that has stopped grading anything cannot stay green. {#accept-anti-joins-fail-loudly}
+- The vendored tarball matches the integrity its pin carries, and the seeded rows are parsed from its bytes rather than transcribed. {#accept-fixture-parsed-not-typed}
+- The quotation the suite grades is hashed in the suite rather than in the fixture, so editing the fixture cannot move its own target. {#accept-quotation-pinned}
+- Once loaded, changing the reader or the theme is answered without a network request. {#accept-answers-without-network}
+- No figure animates and no specimen fades in, so two readings of the same separation look the same. {#accept-no-numeric-motion}
+- Every figure is set in a fixed advance, so a column of separations is read by the shape of the column. {#accept-tabular-figures}
+- Every screen renders correctly in both light and dark appearance. {#accept-dark-twin}

@@ -1,0 +1,532 @@
+{
+  "token": [
+    {
+      "id": "token_0001",
+      "theme": "seed_theme_1",
+      "name": "Sample name 1",
+      "raw": "seed_raw_1",
+      "kind": "literal",
+      "target": "seed_target_1",
+      "chain": "seed_chain_1",
+      "resolved": "seed_resolved_1",
+      "composited": "seed_composited_1",
+      "type": "color",
+      "describes": "seed_describes_1",
+      "pos": 10
+    },
+    {
+      "id": "token_0002",
+      "theme": "seed_theme_2",
+      "name": "Sample name 2",
+      "raw": "seed_raw_2",
+      "kind": "alias",
+      "target": "seed_target_2",
+      "chain": "seed_chain_2",
+      "resolved": "seed_resolved_2",
+      "composited": "seed_composited_2",
+      "type": "border",
+      "describes": "seed_describes_2",
+      "pos": 20
+    },
+    {
+      "id": "token_0003",
+      "theme": "seed_theme_3",
+      "name": "Sample name 3",
+      "raw": "seed_raw_3",
+      "kind": "literal",
+      "target": "seed_target_3",
+      "chain": "seed_chain_3",
+      "resolved": "seed_resolved_3",
+      "composited": "seed_composited_3",
+      "type": "shadow",
+      "describes": "seed_describes_3",
+      "pos": 30
+    }
+  ],
+  "theme": [
+    {
+      "id": "theme_0001",
+      "ground": "light",
+      "reader": "trichromat",
+      "contrast": "normal",
+      "base": "seed_base_1",
+      "wearable": "true",
+      "twin": "seed_twin_1",
+      "wears": "light",
+      "bg_default": "seed_bg_default_1",
+      "bg_muted": "seed_bg_muted_1",
+      "border_default": "seed_border_default_1",
+      "fg_default": "seed_fg_default_1",
+      "fg_muted": "seed_fg_muted_1",
+      "fg_accent": "seed_fg_accent_1",
+      "fg_danger": "seed_fg_danger_1",
+      "pos": 10
+    },
+    {
+      "id": "theme_0002",
+      "ground": "dark",
+      "reader": "red-green",
+      "contrast": "high",
+      "base": "seed_base_2",
+      "wearable": "false",
+      "twin": "seed_twin_2",
+      "wears": "dark",
+      "bg_default": "seed_bg_default_2",
+      "bg_muted": "seed_bg_muted_2",
+      "border_default": "seed_border_default_2",
+      "fg_default": "seed_fg_default_2",
+      "fg_muted": "seed_fg_muted_2",
+      "fg_accent": "seed_fg_accent_2",
+      "fg_danger": "seed_fg_danger_2",
+      "pos": 20
+    },
+    {
+      "id": "theme_0003",
+      "ground": "dark-dimmed",
+      "reader": "tritanopia",
+      "contrast": "normal",
+      "base": "seed_base_3",
+      "wearable": "true",
+      "twin": "seed_twin_3",
+      "wears": "",
+      "bg_default": "seed_bg_default_3",
+      "bg_muted": "seed_bg_muted_3",
+      "border_default": "seed_border_default_3",
+      "fg_default": "seed_fg_default_3",
+      "fg_muted": "seed_fg_muted_3",
+      "fg_accent": "seed_fg_accent_3",
+      "fg_danger": "seed_fg_danger_3",
+      "pos": 30
+    }
+  ],
+  "cell": [
+    {
+      "id": "cell_0001",
+      "ground": "seed_ground_1",
+      "reader": "seed_reader_1",
+      "contrast": "seed_contrast_1",
+      "theme": "seed_theme_1",
+      "published": "true"
+    },
+    {
+      "id": "cell_0002",
+      "ground": "seed_ground_2",
+      "reader": "seed_reader_2",
+      "contrast": "seed_contrast_2",
+      "theme": "seed_theme_2",
+      "published": "false"
+    },
+    {
+      "id": "cell_0003",
+      "ground": "seed_ground_3",
+      "reader": "seed_reader_3",
+      "contrast": "seed_contrast_3",
+      "theme": "seed_theme_3",
+      "published": "true"
+    }
+  ],
+  "segment": [
+    {
+      "id": "segment_0001",
+      "left": "seed_left_1",
+      "right": "seed_right_1",
+      "says": "seed_says_1",
+      "pos": 10
+    },
+    {
+      "id": "segment_0002",
+      "left": "seed_left_2",
+      "right": "seed_right_2",
+      "says": "seed_says_2",
+      "pos": 20
+    },
+    {
+      "id": "segment_0003",
+      "left": "seed_left_3",
+      "right": "seed_right_3",
+      "says": "seed_says_3",
+      "pos": 30
+    }
+  ],
+  "reader": [
+    {
+      "id": "reader_0001",
+      "name": "Sample name 1",
+      "says": "seed_says_1",
+      "severity": "seed_severity_1",
+      "m00": 10,
+      "m01": 10,
+      "m02": 10,
+      "m10": 10,
+      "m11": 10,
+      "m12": 10,
+      "m20": 10,
+      "m21": 10,
+      "m22": 10,
+      "citation": "seed_citation_1",
+      "pos": 10
+    },
+    {
+      "id": "reader_0002",
+      "name": "Sample name 2",
+      "says": "seed_says_2",
+      "severity": "seed_severity_2",
+      "m00": 20,
+      "m01": 20,
+      "m02": 20,
+      "m10": 20,
+      "m11": 20,
+      "m12": 20,
+      "m20": 20,
+      "m21": 20,
+      "m22": 20,
+      "citation": "seed_citation_2",
+      "pos": 20
+    },
+    {
+      "id": "reader_0003",
+      "name": "Sample name 3",
+      "says": "seed_says_3",
+      "severity": "seed_severity_3",
+      "m00": 30,
+      "m01": 30,
+      "m02": 30,
+      "m10": 30,
+      "m11": 30,
+      "m12": 30,
+      "m20": 30,
+      "m21": 30,
+      "m22": 30,
+      "citation": "seed_citation_3",
+      "pos": 30
+    }
+  ],
+  "floor": [
+    {
+      "id": "floor_0001",
+      "value": 10,
+      "applies": "separation",
+      "source": "seed_source_1",
+      "says": "seed_says_1",
+      "pos": 10
+    },
+    {
+      "id": "floor_0002",
+      "value": 20,
+      "applies": "ratio",
+      "source": "seed_source_2",
+      "says": "seed_says_2",
+      "pos": 20
+    },
+    {
+      "id": "floor_0003",
+      "value": 30,
+      "applies": "separation",
+      "source": "seed_source_3",
+      "says": "seed_says_3",
+      "pos": 30
+    }
+  ],
+  "opposition": [
+    {
+      "id": "opposition_0001",
+      "segment": "seed_segment_1",
+      "family": "seed_family_1",
+      "left_token": "seed_left_token_1",
+      "right_token": "seed_right_token_1",
+      "specimen": "seed_specimen_1",
+      "specimen_says": "seed_specimen_says_1",
+      "graded": "true",
+      "declined": "seed_declined_1",
+      "pos": 10
+    },
+    {
+      "id": "opposition_0002",
+      "segment": "seed_segment_2",
+      "family": "seed_family_2",
+      "left_token": "seed_left_token_2",
+      "right_token": "seed_right_token_2",
+      "specimen": "seed_specimen_2",
+      "specimen_says": "seed_specimen_says_2",
+      "graded": "false",
+      "declined": "seed_declined_2",
+      "pos": 20
+    },
+    {
+      "id": "opposition_0003",
+      "segment": "seed_segment_3",
+      "family": "seed_family_3",
+      "left_token": "seed_left_token_3",
+      "right_token": "seed_right_token_3",
+      "specimen": "seed_specimen_3",
+      "specimen_says": "seed_specimen_says_3",
+      "graded": "true",
+      "declined": "seed_declined_3",
+      "pos": 30
+    }
+  ],
+  "pairing": [
+    {
+      "id": "pairing_0001",
+      "ground_token": "seed_ground_token_1",
+      "ink_token": "seed_ink_token_1",
+      "semantic": "seed_semantic_1",
+      "klass": "text",
+      "threshold_filed": 10,
+      "ambiguous": "true",
+      "pos": 10
+    },
+    {
+      "id": "pairing_0002",
+      "ground_token": "seed_ground_token_2",
+      "ink_token": "seed_ink_token_2",
+      "semantic": "seed_semantic_2",
+      "klass": "ui",
+      "threshold_filed": 20,
+      "ambiguous": "false",
+      "pos": 20
+    },
+    {
+      "id": "pairing_0003",
+      "ground_token": "seed_ground_token_3",
+      "ink_token": "seed_ink_token_3",
+      "semantic": "seed_semantic_3",
+      "klass": "text",
+      "threshold_filed": 30,
+      "ambiguous": "true",
+      "pos": 30
+    }
+  ],
+  "claim": [
+    {
+      "id": "claim_0001",
+      "kind": "theme-name",
+      "says": "seed_says_1",
+      "reads": "seed_reads_1",
+      "departs": "seed_departs_1",
+      "probe": "seed_probe_1",
+      "pos": 10
+    },
+    {
+      "id": "claim_0002",
+      "kind": "pairing-rule",
+      "says": "seed_says_2",
+      "reads": "seed_reads_2",
+      "departs": "seed_departs_2",
+      "probe": "seed_probe_2",
+      "pos": 20
+    },
+    {
+      "id": "claim_0003",
+      "kind": "threshold",
+      "says": "seed_says_3",
+      "reads": "seed_reads_3",
+      "departs": "seed_departs_3",
+      "probe": "seed_probe_3",
+      "pos": 30
+    }
+  ],
+  "reading": [
+    {
+      "id": "reading_0001",
+      "opposition": "seed_opposition_1",
+      "specimen": "seed_specimen_1",
+      "theme": "seed_theme_1",
+      "reader": "seed_reader_1",
+      "left_color": "seed_left_color_1",
+      "right_color": "seed_right_color_1",
+      "left_seen": "seed_left_seen_1",
+      "right_seen": "seed_right_seen_1",
+      "ground": "seed_ground_1",
+      "separation": 10,
+      "floor": 10,
+      "verdict": "holds",
+      "delta": 10,
+      "pos": 10,
+      "painted": "yes"
+    },
+    {
+      "id": "reading_0002",
+      "opposition": "seed_opposition_2",
+      "specimen": "seed_specimen_2",
+      "theme": "seed_theme_2",
+      "reader": "seed_reader_2",
+      "left_color": "seed_left_color_2",
+      "right_color": "seed_right_color_2",
+      "left_seen": "seed_left_seen_2",
+      "right_seen": "seed_right_seen_2",
+      "ground": "seed_ground_2",
+      "separation": 20,
+      "floor": 20,
+      "verdict": "fails",
+      "delta": 20,
+      "pos": 20,
+      "painted": "no"
+    },
+    {
+      "id": "reading_0003",
+      "opposition": "seed_opposition_3",
+      "specimen": "seed_specimen_3",
+      "theme": "seed_theme_3",
+      "reader": "seed_reader_3",
+      "left_color": "seed_left_color_3",
+      "right_color": "seed_right_color_3",
+      "left_seen": "seed_left_seen_3",
+      "right_seen": "seed_right_seen_3",
+      "ground": "seed_ground_3",
+      "separation": 30,
+      "floor": 30,
+      "verdict": "ungraded",
+      "delta": 30,
+      "pos": 30,
+      "painted": ""
+    }
+  ],
+  "ratio": [
+    {
+      "id": "ratio_0001",
+      "pairing": "seed_pairing_1",
+      "theme": "seed_theme_1",
+      "ground_color": "seed_ground_color_1",
+      "ink_color": "seed_ink_color_1",
+      "ratio": 10,
+      "verdict_text": "holds",
+      "verdict_ui": "holds",
+      "ambiguous": "true"
+    },
+    {
+      "id": "ratio_0002",
+      "pairing": "seed_pairing_2",
+      "theme": "seed_theme_2",
+      "ground_color": "seed_ground_color_2",
+      "ink_color": "seed_ink_color_2",
+      "ratio": 20,
+      "verdict_text": "misses",
+      "verdict_ui": "misses",
+      "ambiguous": "false"
+    },
+    {
+      "id": "ratio_0003",
+      "pairing": "seed_pairing_3",
+      "theme": "seed_theme_3",
+      "ground_color": "seed_ground_color_3",
+      "ink_color": "seed_ink_color_3",
+      "ratio": 30,
+      "verdict_text": "holds",
+      "verdict_ui": "holds",
+      "ambiguous": "true"
+    }
+  ],
+  "score": [
+    {
+      "id": "score_0001",
+      "theme": "seed_theme_1",
+      "reader": "seed_reader_1",
+      "holds": 10,
+      "fails": 10,
+      "improved": 10,
+      "regressed": 10,
+      "unchanged": 10
+    },
+    {
+      "id": "score_0002",
+      "theme": "seed_theme_2",
+      "reader": "seed_reader_2",
+      "holds": 20,
+      "fails": 20,
+      "improved": 20,
+      "regressed": 20,
+      "unchanged": 20
+    },
+    {
+      "id": "score_0003",
+      "theme": "seed_theme_3",
+      "reader": "seed_reader_3",
+      "holds": 30,
+      "fails": 30,
+      "improved": 30,
+      "regressed": 30,
+      "unchanged": 30
+    }
+  ],
+  "census": [
+    {
+      "id": "census_0001",
+      "fact": "seed_fact_1",
+      "count": 10,
+      "says": "seed_says_1"
+    },
+    {
+      "id": "census_0002",
+      "fact": "seed_fact_2",
+      "count": 20,
+      "says": "seed_says_2"
+    },
+    {
+      "id": "census_0003",
+      "fact": "seed_fact_3",
+      "count": 30,
+      "says": "seed_says_3"
+    }
+  ],
+  "type_rung": [
+    {
+      "id": "type_rung_0001",
+      "purpose": "seed_purpose_1",
+      "value": "seed_value_1",
+      "resolved": "seed_resolved_1",
+      "dimension": "text",
+      "coincides": "seed_coincides_1",
+      "pos": 10
+    },
+    {
+      "id": "type_rung_0002",
+      "purpose": "seed_purpose_2",
+      "value": "seed_value_2",
+      "resolved": "seed_resolved_2",
+      "dimension": "leading",
+      "coincides": "seed_coincides_2",
+      "pos": 20
+    },
+    {
+      "id": "type_rung_0003",
+      "purpose": "seed_purpose_3",
+      "value": "seed_value_3",
+      "resolved": "seed_resolved_3",
+      "dimension": "text",
+      "coincides": "seed_coincides_3",
+      "pos": 30
+    }
+  ],
+  "cursor": [
+    {
+      "id": "cursor_0001",
+      "reader": "trichromat"
+    },
+    {
+      "id": "cursor_0002",
+      "reader": "protanopia"
+    },
+    {
+      "id": "cursor_0003",
+      "reader": "deuteranopia"
+    }
+  ],
+  "fold": [
+    {
+      "id": "fold_0001",
+      "note": "seed_note_1",
+      "error": "seed_error_1"
+    },
+    {
+      "id": "fold_0002",
+      "note": "seed_note_2",
+      "error": "seed_error_2"
+    },
+    {
+      "id": "fold_0003",
+      "note": "seed_note_3",
+      "error": "seed_error_3"
+    }
+  ]
+}

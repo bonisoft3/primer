@@ -1,0 +1,9 @@
+{
+  "name": "dataviz-palette-validator",
+  "origin": "the bundled dataviz skill, scripts/validate_palette.js",
+  "version": "claude-code 2.1.263, skill digest 60a86d235dc8a34f86d45541817d8b5a",
+  "integrity": "sha256-asYopI5n1YkY9Msr3lUHaiNE93qYbO52fre/MwZJaRQ=",
+  "url": null,
+  "why": "The vendored copy IS the artifact. Its origin is a per-install path under /private/tmp carrying a CLI version and a content digest, not a re-fetchable URL, and just test's allow-read would not reach it in any case. The digest above is of these bytes, so a hand-edit is a red fixture case; nothing here re-derives it from the origin.",
+  "quotation": "contrast() and validate() are exported and are called. deltaE() and simulate() are module-private, so tests/ground-truth.ts carries its own matrices and OKLab distance and is pinned to this file through validate()'s public report string. Exporting more from this file would turn the quotation into a fork."
+}

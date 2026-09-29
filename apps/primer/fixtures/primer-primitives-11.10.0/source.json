@@ -1,0 +1,31 @@
+{
+  "name": "primer-themes",
+  "origin": "@primer/primitives",
+  "version": "11.10.0",
+  "license": "MIT, (c) GitHub, Inc.",
+  "url": "https://registry.npmjs.org/@primer/primitives/-/primitives-11.10.0.tgz",
+  "integrity": "sha512-ihZxIst4Izry284StKFjpbYvX6R/IBFTLu+qiuAmR93PsKF2hdjoabhSYwKI8iCxOUx94jVP55bI3NoY7STjYQ==",
+  "extracted": {
+    "themes/<theme>.css": "dist/css/functional/themes/<theme>.css, verbatim",
+    "published.json": "dist/docs/functional/themes/<theme>.json, reduced to each declaration's $type and $description — the two columns the audit reads; the tree itself is 22MB",
+    "DESIGN_TOKENS_GUIDE.md": "DESIGN_TOKENS_GUIDE.md, verbatim — the Logic Matrix and the threshold table this app quotes"
+  },
+  "files": {
+    "themes/dark-colorblind-high-contrast.css": "sha256-QjiEjGkoMbioKHANQw8qt/eJWe746bEYKIwAD4BslCM=",
+    "themes/dark-colorblind.css": "sha256-un8E5quSh+5in7/Qhx85XVR8pzAFDE+NFonC/JxNocI=",
+    "themes/dark-dimmed-high-contrast.css": "sha256-0mRkXjhqptIroAtNP0s1NgYC7Et3G8fgCuixG5WPdgk=",
+    "themes/dark-dimmed.css": "sha256-Er00KK4FaSxuTPRfgakJfW5tZfye3hEGvLneGKMzsvU=",
+    "themes/dark-high-contrast.css": "sha256-4ZQBRLqXbSUDzloT6YfDLGgmfEtGUCmXxH2sJfHW7pQ=",
+    "themes/dark-tritanopia-high-contrast.css": "sha256-DWkY3ukIlPydL206Qrfe3TEgD5E96wm4j6JiFSHXfZ4=",
+    "themes/dark-tritanopia.css": "sha256-O8tVgIJj0VEY0/E9xcq4bnotc2AaO3yIAK156+JEn/A=",
+    "themes/dark.css": "sha256-1wzw1POysQVgMLQPzxzWWx100H277AAq0wDggmYYjYk=",
+    "themes/light-colorblind-high-contrast.css": "sha256-zKp5XsY11frZTNLdFY3APHfit912jqajOLT9LK1WzSE=",
+    "themes/light-colorblind.css": "sha256-3TLM5t6tP7o5etoGBd9HF8sGggSmfzSYIdOC8VZkxNk=",
+    "themes/light-high-contrast.css": "sha256-3Mwxc0CuEMN+8E9LpvQb3ROysC9lsb3lE7xXBs55AR0=",
+    "themes/light-tritanopia-high-contrast.css": "sha256-iq9z7QHTiLLRAcNaM4+K9XX9ENsYgfqP4UPtyRFgb8I=",
+    "themes/light-tritanopia.css": "sha256-cJz00Lipn3INGo/66hcMR7wdWlzvdVAtHd6b5WfbBTw=",
+    "themes/light.css": "sha256-hkaL36F2Hxide+18GhPGGD9n7BMtaJ2sxjrMnuyYZJY=",
+    "published.json": "sha256-e1kvSJlNw3RYMY9lJ49KA0bMeAzjsHkkKeJHfsCg7Nw=",
+    "DESIGN_TOKENS_GUIDE.md": "sha256-1ZTrxzYsuCB7hRp5VJ4yeDgfILbccZKcj5s55OuZTv0="
+  }
+}

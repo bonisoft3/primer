@@ -1,0 +1,160 @@
+/* The audit's own vocabulary: the row a figure sits in, the two sides of a
+   specimen, and the fixed advance every number is set in.
+
+   No colour literal appears in this file or in any screen's; screens.cue says
+   why. */
+
+.screen {
+  max-width: var(--measure-page);
+  margin: 0 auto;
+  padding: var(--sp-md);
+  color: var(--primary);
+  background: var(--neutral);
+  font-size: var(--type-body);
+  line-height: var(--type-leading-body);
+}
+
+/* A screen about one theme is set in it. The roles arrive bound on the root from
+   the subject's own row, so what is left here is spending them: the panel fills
+   the screen's own box, and its colour scheme follows the subject's ground so
+   that a scrollbar, a widget and every role no column carries belong to the
+   subject rather than to the appearance the reader is in. */
+.subject {
+  margin: calc(-1 * var(--sp-md));
+  padding: var(--sp-md);
+  background: var(--neutral);
+  color: var(--primary);
+}
+.subject[data-ground="light"] { color-scheme: light; }
+.subject[data-ground="dark"], .subject[data-ground="dark-dimmed"] { color-scheme: dark; }
+
+h1 { font-size: var(--type-display); line-height: var(--type-leading-display); margin: 0 0 var(--sp-sm); }
+h2 { font-size: var(--type-title); line-height: var(--type-leading-title); margin: var(--sp-lg) 0 var(--sp-sm); }
+h3 { font-size: var(--type-subtitle); margin: var(--sp-md) 0 var(--sp-sm); }
+
+.lede { max-width: var(--measure-sheet); color: var(--secondary); }
+.note { max-width: var(--measure-sheet); font-size: var(--type-body-small); color: var(--secondary); }
+.sect, .axis, .who, .word { font-size: var(--type-label); }
+
+/* A link standing on its own line is a thumb tall, and its container is a flex
+   row so that the padded box IS the line: a padded inline-block sits in a line
+   box that did not grow with it and overlaps its neighbour. */
+.back, .ways { display: flex; flex-wrap: wrap; gap: var(--sp-md); align-items: baseline; }
+.back a, .ways a, .to-pairings, .to-tokens, .theme-name, .half {
+  display: inline-block;
+  padding-block: var(--sp-sm);
+  font-size: var(--type-label);
+  color: var(--accent);
+}
+
+/* A link inside a SENTENCE keeps the sentence's size and leading, and takes its
+   target from padding on an inline box, which getBoundingClientRect and the hit
+   test count and the line box does not. The padding is bounded both ways: enough
+   to clear the target floor, and small enough that the box stays out of the
+   line above. A theme name is one word however many hyphens it carries: broken
+   over two lines, its bounding box spans the blank beside its first line, where
+   the hit test finds the neighbour instead. */
+.wearing a, .lede a {
+  padding-block: calc(var(--sp-sm) / 2);
+  white-space: nowrap;
+  color: var(--accent);
+}
+
+/* Every figure in a fixed advance, so a column of separations is read by the
+   shape of the column rather than by reading each number. There is no rung for
+   a font feature and no vocabulary that contains one. */
+.chain, .matrix, .raw, .describes, .says { overflow-x: auto; }
+
+.fig, .tok, .chain, .matrix, code {
+  font-family: ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--type-code);
+  line-height: var(--type-leading-code);
+}
+.fig { text-align: end; }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+.theme-row, .cell, .twin, .orphan, .reading, .cell-reading, .ratio-row,
+.obligation, .token-row, .census-row, .reader-row, .floor-row, .segment-row,
+.declined-row, .type-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  align-items: baseline;
+  padding: 2px var(--sp-sm);
+  border-block-end: var(--border-size-1) solid var(--border);
+}
+
+.theme-name { flex: 0 0 14rem; }
+.score { display: flex; gap: var(--sp-sm); }
+
+/* A specimen is two elements, and each is painted from the row's own colour
+   through the one channel a stylesheet may not hold: --left, --right and
+   --ground are bound inline. */
+.pair { display: flex; gap: var(--sp-sm); align-items: stretch; background: var(--ground); padding: var(--sp-sm); }
+.pair .side { display: flex; gap: var(--sp-sm); align-items: center; padding: var(--sp-sm); }
+.pair .chip { display: inline-block; inline-size: var(--control-h); block-size: var(--control-h); border-radius: var(--r-sm); }
+.side-left .chip { background: var(--left); }
+.side-right .chip { background: var(--right); }
+[data-specimen="ink"] .side-left .chip,
+[data-specimen="diff-ink"] .side-left .chip,
+[data-specimen="syntax-ink"] .side-left .chip { background: none; border: var(--border-size-3) solid var(--left); }
+[data-specimen="ink"] .side-right .chip,
+[data-specimen="diff-ink"] .side-right .chip,
+[data-specimen="syntax-ink"] .side-right .chip { background: none; border: var(--border-size-3) solid var(--right); }
+/* A rule and a field outline are drawn as a BORDER, because that is what those
+   two token families are on a page. Every specimen kind has to appear here: a
+   kind with no rule falls through to the background above, and the paint check
+   then reads the chrome's own ink off an element that was never painted from a
+   row. */
+[data-specimen="rule"] .side-left .chip { background: none; border: var(--border-size-2) solid var(--left); }
+[data-specimen="rule"] .side-right .chip { background: none; border: var(--border-size-2) solid var(--right); }
+[data-specimen="field"] .side-left .chip { background: none; border: var(--border-size-2) solid var(--left); }
+[data-specimen="field"] .side-right .chip { background: none; border: var(--border-size-2) solid var(--right); }
+.pair .word { font-size: var(--type-label); }
+
+/* A simulated colour is marked wherever it appears. A dichromat's world is not
+   a filter over a trichromat's, so the mark is a word and not a tint. */
+.simulated::before { content: "simulated · "; font-size: var(--type-overline); letter-spacing: 0.08em; color: var(--secondary); }
+
+.over { font-size: var(--type-caption); color: var(--secondary); }
+.drawn-text { background: var(--ground); color: var(--ink); padding: 2px var(--sp-sm); }
+
+.seat { border: var(--border-size-1) solid var(--border); background: var(--surface-muted); padding: var(--sp-sm); margin: var(--sp-md) 0; }
+.seat-says { font-size: var(--type-body-small); color: var(--secondary); margin: 0; }
+.seat-error:not(:empty) { color: var(--danger); font-size: var(--type-body-small); margin: var(--sp-sm) 0 0; }
+
+.says, .describes, .reader-says, .reason, .citation, .src { font-size: var(--type-body-small); color: var(--secondary); }
+
+/* A verbatim quotation is a wide monospace block and it must not take the
+   document sideways with it: it scrolls inside its own container, which is what
+   keeps a phone's document exactly as wide as the phone. */
+blockquote.says {
+  margin: 0;
+  overflow-x: auto;
+  padding: var(--sp-sm) var(--sp-md);
+  border-inline-start: var(--border-size-3) solid var(--border);
+  background: var(--surface-muted);
+  white-space: pre-wrap;
+  font-family: ui-monospace, monospace;
+  font-size: var(--type-code);
+  color: var(--primary);
+}
+
+button {
+  font: inherit;
+  font-size: var(--type-label);
+  min-block-size: var(--min-touch);
+  min-inline-size: var(--min-touch);
+  padding: 0 var(--control-pad-x);
+  color: var(--primary);
+  background: var(--surface);
+  border: var(--border-size-1) solid var(--border);
+  border-radius: var(--r-sm);
+}
+form { display: inline; margin: 0; }
+
+/* Nothing animates and nothing fades in, so two readings of the same
+   separation look the same. */
+* { transition: none; animation: none; }

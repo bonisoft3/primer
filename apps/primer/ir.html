@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Told Apart — IR</title>
+<meta name="pronto-ir-version" content="alpha">
+<meta name="pronto-source" content="brief.md">
+<meta name="pronto-brief-sha256" content="bbb4d1d155a73a889a769726b36836892373073035a50ce7af62a2c8fc2ebd78">
+<meta name="pronto-generated" content="2026-09-10">
+<meta name="pronto-compiler" content="claude-opus-5">
+<meta name="pronto-team" content="studio (plugins/pronto/teams/studio.md)">
+<meta name="pronto-cluster" content="mecha (plugins/pronto/clusters/mecha.cue)">
+<meta name="pronto-terminal" content="omnishell (plugins/pronto/terminals/omnishell.cue)">
+<meta name="pronto-loop" content="sayt (plugins/pronto/loops/sayt.cue)">
+<meta name="pronto-build" content="bayt (plugins/pronto/builders/bayt.cue)">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"
+  integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I"
+  crossorigin="anonymous"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: "neutral"});</script>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 62rem; margin: 2rem auto; padding: 0 1rem;
+         font: 15px/1.55 -apple-system, "Segoe UI", sans-serif; }
+  h1, h2, h3 { line-height: 1.2; }
+  table { border-collapse: collapse; margin: 0.7rem 0; }
+  th, td { border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+           padding: 0.25rem 0.6rem; text-align: left; vertical-align: top; }
+  code.cel { font: 0.85em/1.4 ui-monospace, monospace; padding: 0.05em 0.3em;
+             border-radius: 4px;
+             background: color-mix(in srgb, currentColor 8%, transparent); }
+  figure { margin: 1rem 0; }
+  figure svg { border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+               border-radius: 6px; }
+  figcaption { font-size: 0.8rem; opacity: 0.75; max-width: 250px; }
+  .storyboard { display: flex; flex-wrap: wrap; gap: 1rem; }
+  p[data-kind="test"] { border-left: 3px solid color-mix(in srgb, currentColor 30%, transparent);
+                        padding-left: 0.8rem; }
+  section[data-kind="review"] { border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+                        border-radius: 6px; padding: 0.2rem 1rem; margin: 1rem 0; }
+  .verdict { font-weight: 700; }
+
+  /* Frame palette — the pair this app wears, light-colorblind-high-contrast
+     above and dark-colorblind-high-contrast in the .dark frames, transcribed.
+     The ir is not a screen stylesheet, so these are literals here and nowhere
+     else. */
+  .frames text { font: 10px ui-sans-serif, sans-serif; fill: #010409; }
+  .frames .h { font-size: 13px; font-weight: 700; }
+  .frames .big { font-size: 17px; font-weight: 700; }
+  .frames .sect { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; fill: #393f46; }
+  .frames .muted { fill: #393f46; }
+  .frames .accent { fill: #023b95; }
+  .frames .warn { fill: #603700; }
+  .frames .mono { font: 9px ui-monospace, monospace; }
+  .frames .mid { text-anchor: middle; }
+  .frames rect.page { fill: #ffffff; }
+  .frames rect.well { fill: #e6eaef; stroke: #454c54; }
+  .frames rect.ctl { fill: #ffffff; stroke: #454c54; }
+  .frames rect.on { fill: #ffffff; stroke: #023b95; }
+  .frames .rule { stroke: #454c54; stroke-width: 1; }
+  .frames .heavy { stroke: #010409; stroke-width: 1; }
+  .frames .dark text { fill: #ffffff; }
+  .frames .dark .sect, .frames .dark .muted { fill: #b7bdc8; }
+  .frames .dark .accent { fill: #74b9ff; }
+  .frames .dark .warn { fill: #f0b72f; }
+  .frames .dark rect.page { fill: #010409; }
+  .frames .dark rect.well { fill: #151b23; stroke: #b7bdc8; }
+  .frames .dark rect.ctl { fill: #010409; stroke: #b7bdc8; }
+  .frames .dark rect.on { fill: #010409; stroke: #74b9ff; }
+  .frames .dark .rule { stroke: #b7bdc8; }
+  .frames .dark .heavy { stroke: #ffffff; }
+</style>
+</head>
+<body>
+
+<h1>Told Apart — engineering design</h1>
+<p>
+Compiled from <a href="brief.md">brief.md</a> (pinned above) by the
+<a href="../../plugins/pronto/teams/studio.md">studio</a> team, onto the mecha
+cluster, the omnishell terminal, the sayt loop and the bayt build graph.
+</p>
+
+<h2 id="overview">Overview</h2>
+<p>
+Fourteen theme stylesheets, 959 declarations each, and one question asked of
+every semantic opposition in them: can the reader this theme is named for tell
+these two colours apart? Every entity takes the <code>tab</code> path
+(<a href="#decision-01">decision-01</a>): nothing is published, no migration is
+emitted, and the whole data plane is the terminal's in-memory collections. Nine
+collections are seeded out of the vendored tarball and never written; five are
+written by two reduces at the mutation seat.
+</p>
+<p>
+The load-bearing idea is that <strong>the arithmetic is implemented twice, over
+two data paths, and the two must agree</strong>. The app computes each
+separation in a Jessie reduce over rows in the tab
+(<a href="#audit">audit</a>); <code>tests/ground-truth.ts</code> computes the
+same number in Deno over the vendored bytes — parsing the CSS, resolving aliases
+to a fixpoint within each theme, compositing alpha over that theme's own
+<code>--bgColor-default</code>, applying the Machado–Oliveira–Fernandes
+severity-1.0 matrix and taking OKLab ΔE. The two share no code
+(<a href="#decision-03">decision-03</a>). Two implementations of colour-vision
+simulation agreeing is not the default state of the world.
+</p>
+<p>
+The second half is the clamp. At <code>integrate</code>, Chromium reads
+<code>getComputedStyle</code> off both specimen elements of every graded
+opposition and the ΔE is recomputed FROM THE PAINTED COLOURS
+(<a href="#decision-04">decision-04</a>). A blank page has no specimens; a
+transparent specimen matches nothing; a screen showing the wrong theme's row
+matches the wrong theme. No stylesheet in this app may hold a colour literal, so
+every specimen arrives as a bound inline custom property from a row — which is
+exactly what makes that check grade the data path.
+</p>
+
+<div class="mermaid">
+graph TD
+  Token[("Token (tab)")] -.-> audit
+  Theme[("Theme (tab)")] -.-> audit
+  Opposition[("Opposition (tab)")] -.-> audit
+  Reader[("Reader (tab)")] -.-> audit
+  Floor[("Floor (tab)")] -.-> audit
+  Pairing[("Pairing (tab)")] -.-> audit
+  audit["audit (reduce)"] --> Reading[("Reading (tab)")]
+  audit --> Ratio[("Ratio (tab)")]
+  audit --> Score[("Score (tab)")]
+  audit --> Census[("Census (tab)")]
+  Cursor[("Cursor (tab)")] -.-> focus
+  focus["focus (reduce)"] --> Reading
+  Reading -.-> theme
+  Score -.-> roster
+  Ratio -.-> pairings
+  Census -.-> tokens
+  Claim[("Claim (tab)")] -.-> spec
+</div>
+
+<h2 id="entities">Entities</h2>
+
+
+<section id="Token" data-kind="entity" data-durability="tab" data-type-id="0x9ea139f998cdd3b6">
+<h3>Token — tab</h3>
+<p>
+The declarations the audit reads, one row per (theme, name). The closure rule is stated on the declarations screen and on the specification screen: every token whose name carries an opposition segment, every token a published pairing names, every categorical chart colour, the whole alias closure of those three IN EACH THEME, and one nominated theme — <code>light</code> — entire. Every theme declares the same 959 names, so the cut is in the theme dimension and not the name dimension. Seeded and never written.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 120</code></td><td>pk, <code>theme#name</code></td></tr>
+<tr data-ordinal="2"><td>theme</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>the vendor's own file stem</td></tr>
+<tr data-ordinal="3"><td>name</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>without the leading <code>--</code></td></tr>
+<tr data-ordinal="4"><td>raw</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>as declared</td></tr>
+<tr data-ordinal="5"><td>kind</td><td>string</td><td><code class="cel">this in ['literal', 'alias']</code></td><td>whether it holds a value or names another token</td></tr>
+<tr data-ordinal="6"><td>target</td><td>string</td><td><code class="cel">this.size() &lt;= 80</code></td><td>the aliased name, empty for a literal</td></tr>
+<tr data-ordinal="7"><td>chain</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the resolution chain, in this theme's own namespace</td></tr>
+<tr data-ordinal="8"><td>resolved</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the fixpoint, six or eight hex digits</td></tr>
+<tr data-ordinal="9"><td>composited</td><td>string</td><td><code class="cel">this.size() &lt;= 9</code></td><td>over this theme's own default ground</td></tr>
+<tr data-ordinal="10"><td>type</td><td>string</td><td><code class="cel">this in ['color', 'border', 'shadow']</code></td><td>the vendor's published <code>$type</code></td></tr>
+<tr data-ordinal="11"><td>describes</td><td>string</td><td><code class="cel">this.size() &lt;= 400</code></td><td>the vendor's own description</td></tr>
+<tr data-ordinal="12"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td>the closure's order</td></tr>
+</table>
+</section>
+
+<section id="Theme" data-kind="entity" data-durability="tab" data-type-id="0xd0b4b4b79ef46913">
+<h3>Theme — tab</h3>
+<p>
+The fourteen, ordered ground then reader then contrast. <code>base</code> is the trichromat-normal member of the theme's own ground, which is what every delta is measured against. <code>twin</code> is the theme on the other ground with the same reader and contrast, and it is empty for exactly two rows — the asymmetry a pronto identity runs into.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>pk, the vendor's file stem, and the route parameter</td></tr>
+<tr data-ordinal="2"><td>ground</td><td>string</td><td><code class="cel">this in ['light', 'dark', 'dark-dimmed']</code></td><td>three, not two</td></tr>
+<tr data-ordinal="3"><td>reader</td><td>string</td><td><code class="cel">this in ['trichromat', 'red-green', 'tritanopia']</code></td><td>who the name is for</td></tr>
+<tr data-ordinal="4"><td>contrast</td><td>string</td><td><code class="cel">this in ['normal', 'high']</code></td><td>the orthogonal axis</td></tr>
+<tr data-ordinal="5"><td>base</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the trichromat-normal member of this ground</td></tr>
+<tr data-ordinal="6"><td>wearable</td><td>bool</td><td>—</td><td>whether a pronto identity could hold it as one half</td></tr>
+<tr data-ordinal="7"><td>twin</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>the other ground's member at this (reader, contrast)</td></tr>
+<tr data-ordinal="8"><td>wears</td><td>string</td><td><code class="cel">this in ['light', 'dark', '']</code></td><td>the half this app actually wears it as</td></tr>
+<tr data-ordinal="16"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td>the roster's order</td></tr>
+</table>
+</section>
+
+<section id="Cell" data-kind="entity" data-durability="tab" data-type-id="0xdd09534d00f69f0e">
+<h3>Cell — tab</h3>
+<p>
+The eighteen cells of ground × reader × contrast, so the four the vendor does not publish are rows rather than an absence. All four name one ground.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 60</code></td><td>pk, <code>ground/reader/contrast</code></td></tr>
+<tr data-ordinal="2"><td>ground</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>reader</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>contrast</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="5"><td>theme</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>empty where unpublished</td></tr>
+<tr data-ordinal="6"><td>published</td><td>bool</td><td>—</td><td>the word the roster prints</td></tr>
+</table>
+</section>
+
+<section id="Segment" data-kind="entity" data-durability="tab" data-type-id="0xe042f92c45550598">
+<h3>Segment — tab</h3>
+<p>
+Primer's opposition vocabulary as rows: the six segment pairs, each with the sentence saying what the opposition means on a page. The pair roster is derived from these and from token names, so adding a segment grows the denominator with no other edit.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 60</code></td><td>pk, <code>left-right</code></td></tr>
+<tr data-ordinal="2"><td>left</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>right</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>what the opposition means on a page</td></tr>
+<tr data-ordinal="5"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Reader" data-kind="entity" data-durability="tab" data-type-id="0xe6c0ddea6193d176">
+<h3>Reader — tab</h3>
+<p>
+The four readings. The matrix rides nine integer columns at ten-thousandths, because a reduce has no matrix library and a float column would put a rounding argument between the two routes that are supposed to agree exactly (<a href="#decision-05">decision-05</a>). The trichromat's is the identity, so it is a row like the others rather than a branch.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 24</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>name</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>who this reader is</td></tr>
+<tr data-ordinal="4"><td>severity</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>one severity, stated</td></tr>
+<tr><td>m00…m22</td><td>int32</td><td>—</td><td>nine columns, the matrix at ten-thousandths</td></tr>
+<tr data-ordinal="14"><td>citation</td><td>string</td><td><code class="cel">this.size() &lt;= 400</code></td><td>empty for the trichromat, who is not a model</td></tr>
+<tr data-ordinal="15"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Floor" data-kind="entity" data-durability="tab" data-type-id="0xdb2753f6e374e82c">
+<h3>Floor — tab</h3>
+<p>
+The thresholds as rows, each saying where it came from. Two separation numbers from this repository's palette validator and the two ratios from Primer's own published table — so the specification screen shows the number that gated every verdict.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>value</td><td>int32</td><td><code class="cel">this &gt; 0</code></td><td>at hundredths</td></tr>
+<tr data-ordinal="3"><td>applies</td><td>string</td><td><code class="cel">this in ['separation', 'ratio']</code></td><td>which quantity it gates</td></tr>
+<tr data-ordinal="4"><td>source</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>where the number came from</td></tr>
+<tr data-ordinal="5"><td>says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="6"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Opposition" data-kind="entity" data-durability="tab" data-type-id="0xbe7770652319916e">
+<h3>Opposition — tab</h3>
+<p>
+The pair roster, DERIVED in the fixture by the segment rule rather than listed: two colour tokens whose names differ in exactly one segment, that segment drawn from <a href="#Segment">Segment</a>. Twenty-two pairs, of which three resolve to the same bytes in all fourteen themes and are shown, not graded, with that fact as their reason (<a href="#decision-06">decision-06</a>).
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 80</code></td><td>pk, the left token's name</td></tr>
+<tr data-ordinal="2"><td>segment</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>ref Segment</td></tr>
+<tr data-ordinal="3"><td>family</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the token family, which decides the specimen</td></tr>
+<tr data-ordinal="4"><td>left_token</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="5"><td>right_token</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="6"><td>specimen</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>which pair of interface elements it is drawn as</td></tr>
+<tr data-ordinal="7"><td>specimen_says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the sentence naming the two elements</td></tr>
+<tr data-ordinal="8"><td>graded</td><td>bool</td><td>—</td><td>false where the two are the same bytes in all fourteen</td></tr>
+<tr data-ordinal="9"><td>declined</td><td>string</td><td><code class="cel">this.size() &lt;= 200</code></td><td>the reason, where it is not graded</td></tr>
+<tr data-ordinal="10"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Pairing" data-kind="entity" data-durability="tab" data-type-id="0xcc4255a194c34096">
+<h3>Pairing — tab</h3>
+<p>
+Primer's published Logic Matrix as rows: twelve emphasis grounds under the onEmphasis ink, twelve muted grounds under their own semantic ink, and the two default-ground rows the matrix names. Every one of the twelve semantics has both a muted ground and a semantic ink, so no obligation is unsatisfiable — which the fixture asserts rather than assumes.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 60</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>ground_token</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>ink_token</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>semantic</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="5"><td>klass</td><td>string</td><td><code class="cel">this in ['text', 'ui']</code></td><td>the class the guide files it under</td></tr>
+<tr data-ordinal="6"><td>threshold_filed</td><td>int32</td><td><code class="cel">this &gt; 0</code></td><td>at hundredths</td></tr>
+<tr data-ordinal="7"><td>ambiguous</td><td>bool</td><td>—</td><td>true where the guide does not say which threshold applies</td></tr>
+<tr data-ordinal="8"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Claim" data-kind="entity" data-durability="tab" data-type-id="0x9167066063df7222">
+<h3>Claim — tab</h3>
+<p>
+The published claims in the vendor's own words, quoted out of the vendored guide, beside this app's reading and a word for where the two part company — and the language findings, each carrying the probe that measured it. <code>probe</code> is empty exactly where the claim is the vendor's, because a vendor's sentence is quoted rather than measured (<a href="#decision-08">decision-08</a>).
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 60</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>kind</td><td>string</td><td><code class="cel">this in ['theme-name', 'pairing-rule', 'threshold', 'language']</code></td><td></td></tr>
+<tr data-ordinal="3"><td>says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>the vendor's own words, or the platform's shape</td></tr>
+<tr data-ordinal="4"><td>reads</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>this app's reading</td></tr>
+<tr data-ordinal="5"><td>departs</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>where the two part company</td></tr>
+<tr data-ordinal="6"><td>probe</td><td>string</td><td><code class="cel">this.size() &lt;= 400</code></td><td>the command or unification that measured it</td></tr>
+<tr data-ordinal="7"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Reading" data-kind="entity" data-durability="tab" data-type-id="0xc820621d8959b931">
+<h3>Reading — tab</h3>
+<p>
+The graded rows, written by <a href="#audit">audit</a>: nineteen graded oppositions × fourteen themes × four readings is 1,064, of which 798 are colour-vision-gated. <code>left_seen</code> and <code>right_seen</code> are the same two colours as that reader sees them, so a specimen is painted from the row the verdict is on and the reader control repaints the same elements rather than swapping in a second set (<a href="#decision-07">decision-07</a>).
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 160</code></td><td>pk, <code>opposition#theme#reader</code></td></tr>
+<tr data-ordinal="2"><td>opposition</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>theme</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="5"><td>reader</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="6"><td>left_color</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td>composited</td></tr>
+<tr data-ordinal="7"><td>right_color</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td>composited</td></tr>
+<tr data-ordinal="8"><td>left_seen</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td>as this reader sees it</td></tr>
+<tr data-ordinal="9"><td>right_seen</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td>as this reader sees it</td></tr>
+<tr data-ordinal="10"><td>ground</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td>the ground it was composited over, shown as itself</td></tr>
+<tr data-ordinal="11"><td>separation</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td>OKLab ΔE ×100, at hundredths</td></tr>
+<tr data-ordinal="12"><td>floor</td><td>int32</td><td><code class="cel">this &gt; 0</code></td><td>the floor this reading is held to</td></tr>
+<tr data-ordinal="13"><td>verdict</td><td>string</td><td><code class="cel">this in ['holds', 'fails', 'ungraded']</code></td><td>a WORD, never a colour</td></tr>
+<tr data-ordinal="14"><td>delta</td><td>int32</td><td>—</td><td>signed, against the same opposition in this theme's base</td></tr>
+<tr data-ordinal="15"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td>the reader's own order</td></tr>
+<tr data-ordinal="16"><td>painted</td><td>string</td><td><code class="cel">this in ['yes', 'no', '']</code></td><td>owned by <a href="#focus">focus</a> alone</td></tr>
+</table>
+</section>
+
+<section id="Ratio" data-kind="entity" data-durability="tab" data-type-id="0xd807264cbe6f3aff">
+<h3>Ratio — tab</h3>
+<p>
+One row per obligation per theme, written by <a href="#audit">audit</a>: 26 × 14 = 364. Both verdicts on every row, because the tokens do not say which threshold a muted ground under semantic ink takes and picking one would turn a measurement into an opinion.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 120</code></td><td>pk, <code>pairing#theme</code></td></tr>
+<tr data-ordinal="2"><td>pairing</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>theme</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>ground_color</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td></td></tr>
+<tr data-ordinal="5"><td>ink_color</td><td>string</td><td><code class="cel">this.size() == 7</code></td><td></td></tr>
+<tr data-ordinal="6"><td>ratio</td><td>int32</td><td><code class="cel">this &gt;= 100</code></td><td>WCAG contrast at hundredths</td></tr>
+<tr data-ordinal="7"><td>verdict_text</td><td>string</td><td><code class="cel">this in ['holds', 'misses']</code></td><td>against 4.5:1</td></tr>
+<tr data-ordinal="8"><td>verdict_ui</td><td>string</td><td><code class="cel">this in ['holds', 'misses']</code></td><td>against 3:1</td></tr>
+<tr data-ordinal="9"><td>ambiguous</td><td>bool</td><td>—</td><td>carried from the obligation</td></tr>
+</table>
+</section>
+
+<section id="Score" data-kind="entity" data-durability="tab" data-type-id="0xd61b9890d9ff4b05">
+<h3>Score — tab</h3>
+<p>
+The roster's own column, folded off <a href="#Reading">Reading</a> so the roster's numbers ARE the readings' and not a second copy. Five reader keys rather than four: <code>red-green</code> is min(protanopia, deuteranopia), the reduction the palette validator itself makes, and its delta is the minimum's own movement rather than the smaller of two movements.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 80</code></td><td>pk, <code>theme#reader</code></td></tr>
+<tr data-ordinal="2"><td>theme</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>reader</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>holds</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+<tr data-ordinal="5"><td>fails</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+<tr data-ordinal="6"><td>improved</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+<tr data-ordinal="7"><td>regressed</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+<tr data-ordinal="8"><td>unchanged</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Census" data-kind="entity" data-durability="tab" data-type-id="0xd8ea0b6d55581c28">
+<h3>Census — tab</h3>
+<p>
+Every count a reduce over the rows the app holds, so nothing here is transcription. The chart-palette rows are the reason the app declines to grade a family it holds: a seventeen-slot categorical set cannot clear an all-pairs floor, so grading it would be vacuous in the other direction (<a href="#decision-09">decision-09</a>).
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>fact</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+<tr data-ordinal="3"><td>count</td><td>int32</td><td><code class="cel">this &gt;= 0</code></td><td></td></tr>
+<tr data-ordinal="4"><td>says</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="TypeRung" data-kind="entity" data-durability="tab" data-type-id="0xad4a73ccf47bbbde">
+<h3>TypeRung — tab</h3>
+<p>
+The type-role finding, written from the EMITTED stylesheet at build time rather than authored (<code>fixtures/typerungs.ts</code>). A role wins its norm and <code>best</code> keeps one step per (dimension, norm), so every purpose whose value equals a vendored step's DROPS that step from what this app's literal lint can name. Written by hand the count drifts on the first value change and the finding becomes a sentence nobody can check; <code>tests/coverage.test.ts</code> re-reads both sides and holds these rows to them.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this.size() &lt;= 40</code></td><td>pk, the purpose</td></tr>
+<tr data-ordinal="2"><td>purpose</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>one of the platform's published menu</td></tr>
+<tr data-ordinal="3"><td>value</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>as emitted, which may be a reference to a sibling purpose</td></tr>
+<tr data-ordinal="4"><td>resolved</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>through that one level of indirection</td></tr>
+<tr data-ordinal="5"><td>dimension</td><td>string</td><td><code class="cel">this in ['text', 'leading']</code></td><td>read off the name: a <code>leading-*</code> key is a line-height</td></tr>
+<tr data-ordinal="6"><td>coincides</td><td>string</td><td><code class="cel">this.size() &lt;= 60</code></td><td>the vendored step this purpose shadows, or empty</td></tr>
+<tr data-ordinal="7"><td>pos</td><td>int32</td><td><code class="cel">this &gt;= 1</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Cursor" data-kind="entity" data-durability="tab" data-type-id="0xfedc25dbef0bb95c">
+<h3>Cursor — tab</h3>
+<p>
+One row: which of the four readings the specimens on the audit screen are painted as. The only collection any form writes.
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this == 'the'</code></td><td>pk, the singleton</td></tr>
+<tr data-ordinal="2"><td>reader</td><td>string</td><td><code class="cel">this in ['trichromat', 'red-green', 'tritanopia']</code></td><td></td></tr>
+</table>
+</section>
+
+<section id="Fold" data-kind="entity" data-durability="tab" data-type-id="0x8bd02d636155ecc2">
+<h3>Fold — tab</h3>
+<p>
+The seat's own row, and the error channel a refusal patches. Declared LAST, because a seat wakes when its own region's read changes and this is the read every seat is pinned on: the world is whole by the time it lands (<a href="#decision-02">decision-02</a>).
+</p>
+<table data-extract="fields">
+<tr><th>field</th><th>type</th><th>constraint</th><th>notes</th></tr>
+<tr data-ordinal="1"><td>id</td><td>string</td><td><code class="cel">this == 'audit'</code></td><td>pk</td></tr>
+<tr data-ordinal="2"><td>note</td><td>string</td><td><code class="cel">this.size() &gt; 0</code></td><td>what the seat says it did</td></tr>
+<tr data-ordinal="3"><td>error</td><td>string</td><td><code class="cel">this.size() &lt;= 400</code></td><td>the reduce's own refusal, on the screen</td></tr>
+</table>
+</section>
+
+
+<h2 id="screens">Screens</h2>
+
+
+<section id="roster" data-kind="screen" data-route="/">
+<h3>roster — the fourteen, and what a pronto identity can hold</h3>
+<p data-extract="reads">Reads: <a href="#Theme">Theme</a> (filter <code>ground=eq.&lt;ground&gt;</code>, order <code>pos.asc</code>) once per ground, so the fourteen read grouped without a region that can group; <a href="#Score">Score</a> (filter <code>theme=eq.&lt;id&gt;&amp;reader=eq.&lt;reader&gt;</code>) as a nested leaf slot on each row, which is what makes the roster's numbers the readings'; <a href="#Cell">Cell</a> (order <code>id.asc</code>) for the eighteen; and <a href="#Theme">Theme</a> twice more, filtered on <code>wearable</code>, for the twin closure and the two orphans.</p>
+<p data-extract="mutations">Mutations: none. This is the one route on the strip and the app's only index, so the terminal draws no strip at all and every other screen carries its own one-link way back — the shape shadcnui settled. Seat A stands here as it does on every screen.</p>
+<div class="storyboard frames">
+<figure id="roster-loading" data-kind="state" data-state="loading">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">Told Apart</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">Fourteen themes, nineteen graded oppositions.</text>
+<text x="12" y="70" class="sect">THIS APP WEARS</text>
+<text x="12" y="86" class="mono accent">light-colorblind-high-contrast / dark-…</text>
+<text x="12" y="120" class="muted">Folding the separations…</text>
+</g></svg>
+<figcaption>The masthead and the adopted-pair line are already right; only the fold's output waits.</figcaption>
+</figure>
+<figure id="roster-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">Told Apart</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">holds / fails, for the reader the name invokes</text>
+<text x="12" y="66" class="sect">LIGHT</text>
+<rect class="well" x="12" y="74" width="296" height="22" rx="3"/>
+<text x="18" y="88" class="mono">light</text>
+<text x="162" y="88" class="mono">trichromat</text>
+<text x="248" y="88" class="mono">10 / 9</text>
+<rect class="well" x="12" y="100" width="296" height="22" rx="3"/>
+<text x="18" y="114" class="mono">light-high-contrast</text>
+<text x="162" y="114" class="mono">trichromat</text>
+<text x="248" y="114" class="mono">14 / 5</text>
+<rect class="well" x="12" y="126" width="296" height="22" rx="3"/>
+<text x="18" y="140" class="mono">light-colorblind</text>
+<text x="162" y="140" class="mono">red-green</text>
+<text x="248" y="140" class="mono">13 / 6</text>
+<rect class="well" x="12" y="152" width="296" height="22" rx="3"/>
+<text x="18" y="166" class="mono">light-colorblind-hc ★</text>
+<text x="162" y="166" class="mono">red-green</text>
+<text x="248" y="166" class="mono">14 / 5</text>
+<rect class="well" x="12" y="178" width="296" height="22" rx="3"/>
+<text x="18" y="192" class="mono">light-tritanopia</text>
+<text x="162" y="192" class="mono">tritanopia</text>
+<text x="248" y="192" class="mono">18 / 1</text>
+<rect class="well" x="12" y="204" width="296" height="22" rx="3"/>
+<text x="18" y="218" class="mono">light-tritanopia-hc</text>
+<text x="162" y="218" class="mono">tritanopia</text>
+<text x="248" y="218" class="mono">14 / 5</text>
+<text x="12" y="256" class="sect">DARK</text>
+<rect class="well" x="12" y="264" width="296" height="22" rx="3"/>
+<text x="18" y="278" class="mono">dark</text>
+<text x="162" y="278" class="mono">trichromat</text>
+<text x="248" y="278" class="mono">13 / 6</text>
+<rect class="well" x="12" y="290" width="296" height="22" rx="3"/>
+<text x="18" y="304" class="mono">dark-colorblind-hc ★</text>
+<text x="162" y="304" class="mono">red-green</text>
+<text x="248" y="304" class="mono">17 / 2</text>
+<text x="12" y="330" class="sect">DARK-DIMMED</text>
+<rect class="well" x="12" y="338" width="296" height="22" rx="3"/>
+<text x="18" y="352" class="mono">dark-dimmed</text>
+<text x="162" y="352" class="mono">trichromat</text>
+<text x="248" y="352" class="mono">10 / 9</text>
+<rect class="well" x="12" y="364" width="296" height="22" rx="3"/>
+<text x="18" y="378" class="mono">dark-dimmed-hc</text>
+<text x="162" y="378" class="mono">trichromat</text>
+<text x="248" y="378" class="mono">12 / 7</text>
+<text x="12" y="418" class="warn">4 unpublished cells · 2 themes no identity can hold</text>
+</g></svg>
+<figcaption>The fourteen grouped by ground, each with holds / fails for the reader it is named for. The adopted pair is marked. Below the fold: the eighteen cells and the twin closure.</figcaption>
+</figure>
+<figure id="roster-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">Told Apart</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">holds / fails, for the reader the name invokes</text>
+<text x="12" y="66" class="sect">LIGHT</text>
+<rect class="well" x="12" y="74" width="296" height="22" rx="3"/>
+<text x="18" y="88" class="mono">light</text>
+<text x="162" y="88" class="mono">trichromat</text>
+<text x="248" y="88" class="mono">10 / 9</text>
+<rect class="well" x="12" y="100" width="296" height="22" rx="3"/>
+<text x="18" y="114" class="mono">light-high-contrast</text>
+<text x="162" y="114" class="mono">trichromat</text>
+<text x="248" y="114" class="mono">14 / 5</text>
+<rect class="well" x="12" y="126" width="296" height="22" rx="3"/>
+<text x="18" y="140" class="mono">light-colorblind</text>
+<text x="162" y="140" class="mono">red-green</text>
+<text x="248" y="140" class="mono">13 / 6</text>
+<rect class="well" x="12" y="152" width="296" height="22" rx="3"/>
+<text x="18" y="166" class="mono">light-colorblind-hc ★</text>
+<text x="162" y="166" class="mono">red-green</text>
+<text x="248" y="166" class="mono">14 / 5</text>
+<rect class="well" x="12" y="178" width="296" height="22" rx="3"/>
+<text x="18" y="192" class="mono">light-tritanopia</text>
+<text x="162" y="192" class="mono">tritanopia</text>
+<text x="248" y="192" class="mono">18 / 1</text>
+<rect class="well" x="12" y="204" width="296" height="22" rx="3"/>
+<text x="18" y="218" class="mono">light-tritanopia-hc</text>
+<text x="162" y="218" class="mono">tritanopia</text>
+<text x="248" y="218" class="mono">14 / 5</text>
+<text x="12" y="256" class="sect">DARK</text>
+<rect class="well" x="12" y="264" width="296" height="22" rx="3"/>
+<text x="18" y="278" class="mono">dark</text>
+<text x="162" y="278" class="mono">trichromat</text>
+<text x="248" y="278" class="mono">13 / 6</text>
+<rect class="well" x="12" y="290" width="296" height="22" rx="3"/>
+<text x="18" y="304" class="mono">dark-colorblind-hc ★</text>
+<text x="162" y="304" class="mono">red-green</text>
+<text x="248" y="304" class="mono">17 / 2</text>
+<text x="12" y="330" class="sect">DARK-DIMMED</text>
+<rect class="well" x="12" y="338" width="296" height="22" rx="3"/>
+<text x="18" y="352" class="mono">dark-dimmed</text>
+<text x="162" y="352" class="mono">trichromat</text>
+<text x="248" y="352" class="mono">10 / 9</text>
+<rect class="well" x="12" y="364" width="296" height="22" rx="3"/>
+<text x="18" y="378" class="mono">dark-dimmed-hc</text>
+<text x="162" y="378" class="mono">trichromat</text>
+<text x="248" y="378" class="mono">12 / 7</text>
+</g></svg>
+<figcaption>The same screen in the dark half of the one identity this app wears — dark-colorblind-high-contrast's own values.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="roster">
+{
+  "arrive": {
+    "states": [
+      "loading",
+      "populated"
+    ],
+    "accepts": [
+      "accept-roster-names-the-fourteen",
+      "accept-roster-settles-cold",
+      "accept-adopted-pair-named",
+      "accept-read-only",
+      "accept-tabular-figures"
+    ]
+  },
+  "the_cross": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-missing-cells-are-rows",
+      "accept-orphan-grounds-marked",
+      "accept-twin-closure-asymmetry"
+    ]
+  },
+  "the_findings": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-light-fails-red-green",
+      "accept-high-contrast-orthogonal",
+      "accept-colorblind-improves",
+      "accept-dimmed-worst"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-dark-twin",
+      "accept-no-numeric-motion"
+    ]
+  }
+}
+</script>
+</section>
+
+<section id="theme" data-kind="screen" data-route="/theme/:theme">
+<h3>theme — one theme audited</h3>
+<p data-extract="reads">Reads: <a href="#Theme">Theme</a> (filter <code>id=eq.{param.theme}</code>) as the root, so the title and the axes are the theme's own; <a href="#Opposition">Opposition</a> (filter <code>graded=eq.true</code>, order <code>pos.asc</code>) for the blocks and again on <code>graded=eq.false</code> for the declined rows; <a href="#Reading">Reading</a> twice per block — once filtered <code>painted=eq.yes</code> for the specimens and once unfiltered on <code>pos.asc</code> for the four numbers; <a href="#Reader">Reader</a> (order <code>pos.asc</code>) for the picker.</p>
+<p data-extract="mutations">Mutations: one form, four times over — the reader picker writes the one <a href="#Cursor">Cursor</a> row (<a href="#pick-reader">pick-reader</a>). <code>keep: 0</code>: a parametrized route would otherwise accumulate one held screen per theme ever visited, and the colours on a held screen are the previous theme's.</p>
+<div class="storyboard frames">
+<figure id="theme-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">light</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">ground light · trichromat · normal</text>
+<text x="12" y="44" class="mono muted">measured against light · composited over #ffffff</text>
+<rect class="on" x="12" y="52" width="70" height="20" rx="3"/>
+<text x="18" y="66" class="mono">trichromat</text>
+<rect class="ctl" x="88" y="52" width="66" height="20" rx="3"/>
+<text x="94" y="66" class="mono">protan</text>
+<rect class="ctl" x="160" y="52" width="74" height="20" rx="3"/>
+<text x="166" y="66" class="mono">deutan</text>
+<rect class="ctl" x="240" y="52" width="66" height="20" rx="3"/>
+<text x="246" y="66" class="mono">tritan</text>
+<text x="12" y="96" class="sect">bgColor-success-emphasis / danger</text>
+<rect class="ctl" x="12" y="104" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="104" width="140" height="28" rx="3"/>
+<text x="20" y="122" class="mono">added</text>
+<text x="168" y="122" class="mono">removed</text>
+<text x="12" y="150" class="mono">trichromat</text>
+<text x="120" y="150" class="mono">2117</text>
+<text x="168" y="150" class="mono muted">1500</text>
+<text x="210" y="150" class="mono">holds</text>
+<text x="270" y="150" class="mono muted">0</text>
+<text x="12" y="165" class="mono">protanopia</text>
+<text x="120" y="165" class="mono">372</text>
+<text x="168" y="165" class="mono muted">600</text>
+<text x="210" y="165" class="mono">fails</text>
+<text x="270" y="165" class="mono muted">0</text>
+<text x="12" y="180" class="mono">deuteranopia</text>
+<text x="120" y="180" class="mono">521</text>
+<text x="168" y="180" class="mono muted">600</text>
+<text x="210" y="180" class="mono">fails</text>
+<text x="270" y="180" class="mono muted">0</text>
+<text x="12" y="195" class="mono">tritanopia</text>
+<text x="120" y="195" class="mono">2050</text>
+<text x="168" y="195" class="mono muted">600</text>
+<text x="210" y="195" class="mono">holds</text>
+<text x="270" y="195" class="mono muted">0</text>
+<text x="12" y="250" class="sect">fgColor-open / closed</text>
+<rect class="ctl" x="12" y="258" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="258" width="140" height="28" rx="3"/>
+<text x="20" y="276" class="mono">added</text>
+<text x="168" y="276" class="mono">removed</text>
+<text x="12" y="304" class="mono">trichromat</text>
+<text x="120" y="304" class="mono">2117</text>
+<text x="168" y="304" class="mono muted">1500</text>
+<text x="210" y="304" class="mono">holds</text>
+<text x="270" y="304" class="mono muted">0</text>
+<text x="12" y="319" class="mono">protanopia</text>
+<text x="120" y="319" class="mono">372</text>
+<text x="168" y="319" class="mono muted">600</text>
+<text x="210" y="319" class="mono">fails</text>
+<text x="270" y="319" class="mono muted">0</text>
+<text x="12" y="334" class="mono">deuteranopia</text>
+<text x="120" y="334" class="mono">521</text>
+<text x="168" y="334" class="mono muted">600</text>
+<text x="210" y="334" class="mono">fails</text>
+<text x="270" y="334" class="mono muted">0</text>
+<text x="12" y="349" class="mono">tritanopia</text>
+<text x="120" y="349" class="mono">2050</text>
+<text x="168" y="349" class="mono muted">600</text>
+<text x="210" y="349" class="mono">holds</text>
+<text x="270" y="349" class="mono muted">0</text>
+</g></svg>
+<figcaption>One theme's graded oppositions, each drawn as the two elements it is, each with four readings against the floor it is held to. Every verdict is a word.</figcaption>
+</figure>
+<figure id="theme-simulated" data-kind="state" data-state="simulated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">light</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">painted as deuteranopia sees it — simulated</text>
+<rect class="ctl" x="12" y="52" width="70" height="20" rx="3"/>
+<text x="18" y="66" class="mono">trichromat</text>
+<rect class="on" x="160" y="52" width="74" height="20" rx="3"/>
+<text x="166" y="66" class="mono">deutan</text>
+<text x="12" y="86" class="warn mono">simulated</text>
+<text x="12" y="96" class="sect">bgColor-success-emphasis / danger</text>
+<rect class="ctl" x="12" y="104" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="104" width="140" height="28" rx="3"/>
+<text x="20" y="122" class="mono">added</text>
+<text x="168" y="122" class="mono">removed</text>
+<text x="12" y="150" class="mono">trichromat</text>
+<text x="120" y="150" class="mono">2117</text>
+<text x="168" y="150" class="mono muted">1500</text>
+<text x="210" y="150" class="mono">holds</text>
+<text x="270" y="150" class="mono muted">0</text>
+<text x="12" y="165" class="mono">protanopia</text>
+<text x="120" y="165" class="mono">372</text>
+<text x="168" y="165" class="mono muted">600</text>
+<text x="210" y="165" class="mono">fails</text>
+<text x="270" y="165" class="mono muted">0</text>
+<text x="12" y="180" class="mono">deuteranopia</text>
+<text x="120" y="180" class="mono">521</text>
+<text x="168" y="180" class="mono muted">600</text>
+<text x="210" y="180" class="mono">fails</text>
+<text x="270" y="180" class="mono muted">0</text>
+<text x="12" y="195" class="mono">tritanopia</text>
+<text x="120" y="195" class="mono">2050</text>
+<text x="168" y="195" class="mono muted">600</text>
+<text x="210" y="195" class="mono">holds</text>
+<text x="270" y="195" class="mono muted">0</text>
+<text x="12" y="250" class="sect">fgColor-open / closed</text>
+<rect class="ctl" x="12" y="258" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="258" width="140" height="28" rx="3"/>
+<text x="20" y="276" class="mono">added</text>
+<text x="168" y="276" class="mono">removed</text>
+<text x="12" y="304" class="mono">trichromat</text>
+<text x="120" y="304" class="mono">2117</text>
+<text x="168" y="304" class="mono muted">1500</text>
+<text x="210" y="304" class="mono">holds</text>
+<text x="270" y="304" class="mono muted">0</text>
+<text x="12" y="319" class="mono">protanopia</text>
+<text x="120" y="319" class="mono">372</text>
+<text x="168" y="319" class="mono muted">600</text>
+<text x="210" y="319" class="mono">fails</text>
+<text x="270" y="319" class="mono muted">0</text>
+<text x="12" y="334" class="mono">deuteranopia</text>
+<text x="120" y="334" class="mono">521</text>
+<text x="168" y="334" class="mono muted">600</text>
+<text x="210" y="334" class="mono">fails</text>
+<text x="270" y="334" class="mono muted">0</text>
+<text x="12" y="349" class="mono">tritanopia</text>
+<text x="120" y="349" class="mono">2050</text>
+<text x="168" y="349" class="mono muted">600</text>
+<text x="210" y="349" class="mono">holds</text>
+<text x="270" y="349" class="mono muted">0</text>
+</g></svg>
+<figcaption>The reader control moved to deuteranopia. The specimens are the same elements repainted; every simulated colour is marked simulated, and the two badges have gone flat.</figcaption>
+</figure>
+<figure id="theme-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">light</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">ground light · trichromat · normal</text>
+<text x="12" y="96" class="sect">bgColor-success-emphasis / danger</text>
+<rect class="ctl" x="12" y="104" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="104" width="140" height="28" rx="3"/>
+<text x="20" y="122" class="mono">added</text>
+<text x="168" y="122" class="mono">removed</text>
+<text x="12" y="150" class="mono">trichromat</text>
+<text x="120" y="150" class="mono">2117</text>
+<text x="168" y="150" class="mono muted">1500</text>
+<text x="210" y="150" class="mono">holds</text>
+<text x="270" y="150" class="mono muted">0</text>
+<text x="12" y="165" class="mono">protanopia</text>
+<text x="120" y="165" class="mono">372</text>
+<text x="168" y="165" class="mono muted">600</text>
+<text x="210" y="165" class="mono">fails</text>
+<text x="270" y="165" class="mono muted">0</text>
+<text x="12" y="180" class="mono">deuteranopia</text>
+<text x="120" y="180" class="mono">521</text>
+<text x="168" y="180" class="mono muted">600</text>
+<text x="210" y="180" class="mono">fails</text>
+<text x="270" y="180" class="mono muted">0</text>
+<text x="12" y="195" class="mono">tritanopia</text>
+<text x="120" y="195" class="mono">2050</text>
+<text x="168" y="195" class="mono muted">600</text>
+<text x="210" y="195" class="mono">holds</text>
+<text x="270" y="195" class="mono muted">0</text>
+<text x="12" y="250" class="sect">fgColor-open / closed</text>
+<rect class="ctl" x="12" y="258" width="140" height="28" rx="3"/>
+<rect class="ctl" x="160" y="258" width="140" height="28" rx="3"/>
+<text x="20" y="276" class="mono">added</text>
+<text x="168" y="276" class="mono">removed</text>
+<text x="12" y="304" class="mono">trichromat</text>
+<text x="120" y="304" class="mono">2117</text>
+<text x="168" y="304" class="mono muted">1500</text>
+<text x="210" y="304" class="mono">holds</text>
+<text x="270" y="304" class="mono muted">0</text>
+<text x="12" y="319" class="mono">protanopia</text>
+<text x="120" y="319" class="mono">372</text>
+<text x="168" y="319" class="mono muted">600</text>
+<text x="210" y="319" class="mono">fails</text>
+<text x="270" y="319" class="mono muted">0</text>
+<text x="12" y="334" class="mono">deuteranopia</text>
+<text x="120" y="334" class="mono">521</text>
+<text x="168" y="334" class="mono muted">600</text>
+<text x="210" y="334" class="mono">fails</text>
+<text x="270" y="334" class="mono muted">0</text>
+<text x="12" y="349" class="mono">tritanopia</text>
+<text x="120" y="349" class="mono">2050</text>
+<text x="168" y="349" class="mono muted">600</text>
+<text x="210" y="349" class="mono">holds</text>
+<text x="270" y="349" class="mono muted">0</text>
+</g></svg>
+<figcaption>The audit in the dark appearance. The subject theme's own values are unchanged by the chrome's appearance: a specimen is painted from a row, never from a design token.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="theme">
+{
+  "arrive": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-theme-opens-audit",
+      "accept-specimens-are-elements",
+      "accept-four-readings-per-pair",
+      "accept-delta-from-base",
+      "accept-alpha-composited",
+      "accept-verdict-is-a-word"
+    ]
+  },
+  "simulate": {
+    "states": [
+      "populated",
+      "simulated"
+    ],
+    "accepts": [
+      "accept-simulate-repaints",
+      "accept-answers-without-network",
+      "accept-paint-is-graded"
+    ]
+  },
+  "declined": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-identical-pairs-ungraded",
+      "accept-pairs-derived-not-listed"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-adopted-pair-agrees"
+    ]
+  }
+}
+</script>
+</section>
+
+<section id="opposition" data-kind="screen" data-route="/opposition/:opposition">
+<h3>opposition — one opposition, all fourteen themes</h3>
+<p data-extract="reads">Reads: <a href="#Opposition">Opposition</a> (filter <code>id=eq.{param.opposition}</code>) as the root; <a href="#Segment">Segment</a> (filter <code>id=eq.{segment}</code>) for what the opposition means; <a href="#Reading">Reading</a> (filter <code>opposition=eq.{param.opposition}</code>, order <code>theme.asc,pos.asc</code>) for the column.</p>
+<p data-extract="mutations">Mutations: none. <code>keep: 0</code>, for the reason the audit declares it.</p>
+<div class="storyboard frames">
+<figure id="opposition-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">bgColor-success-emphasis</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">against bgColor-danger-emphasis · red-green</text>
+<text x="12" y="44" class="muted">a check that passed against one that failed</text>
+<rect class="well" x="12" y="62" width="296" height="22" rx="3"/>
+<text x="18" y="76" class="mono">light</text>
+<text x="162" y="76" class="mono">372</text>
+<text x="248" y="76" class="mono">fails</text>
+<rect class="well" x="12" y="88" width="296" height="22" rx="3"/>
+<text x="18" y="102" class="mono">light-hc</text>
+<text x="162" y="102" class="mono">372</text>
+<text x="248" y="102" class="mono">fails</text>
+<rect class="well" x="12" y="114" width="296" height="22" rx="3"/>
+<text x="18" y="128" class="mono">light-cb</text>
+<text x="162" y="128" class="mono">1904</text>
+<text x="248" y="128" class="mono">holds</text>
+<rect class="well" x="12" y="140" width="296" height="22" rx="3"/>
+<text x="18" y="154" class="mono">light-cb-hc</text>
+<text x="162" y="154" class="mono">1993</text>
+<text x="248" y="154" class="mono">holds</text>
+<rect class="well" x="12" y="166" width="296" height="22" rx="3"/>
+<text x="18" y="180" class="mono">light-tri</text>
+<text x="162" y="180" class="mono">1013</text>
+<text x="248" y="180" class="mono">holds</text>
+<rect class="well" x="12" y="192" width="296" height="22" rx="3"/>
+<text x="18" y="206" class="mono">light-tri-hc</text>
+<text x="162" y="206" class="mono">1013</text>
+<text x="248" y="206" class="mono">holds</text>
+<rect class="well" x="12" y="218" width="296" height="22" rx="3"/>
+<text x="18" y="232" class="mono">dark</text>
+<text x="162" y="232" class="mono">486</text>
+<text x="248" y="232" class="mono">fails</text>
+<rect class="well" x="12" y="244" width="296" height="22" rx="3"/>
+<text x="18" y="258" class="mono">dark-cb</text>
+<text x="162" y="258" class="mono">1846</text>
+<text x="248" y="258" class="mono">holds</text>
+<rect class="well" x="12" y="270" width="296" height="22" rx="3"/>
+<text x="18" y="284" class="mono">dark-dimmed</text>
+<text x="162" y="284" class="mono">402</text>
+<text x="248" y="284" class="mono">fails</text>
+<rect class="well" x="12" y="296" width="296" height="22" rx="3"/>
+<text x="18" y="310" class="mono">dark-dimmed-hc</text>
+<text x="162" y="310" class="mono">418</text>
+<text x="248" y="310" class="mono">fails</text>
+</g></svg>
+<figcaption>One opposition, every theme, ordered by theme with the four readings inside each. The column is where a variant that improves one reader while regressing another is a shape rather than a claim.</figcaption>
+</figure>
+<figure id="opposition-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">bgColor-success-emphasis</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">against bgColor-danger-emphasis · red-green</text>
+<rect class="well" x="12" y="62" width="296" height="22" rx="3"/>
+<text x="18" y="76" class="mono">light</text>
+<text x="162" y="76" class="mono">372</text>
+<text x="248" y="76" class="mono">fails</text>
+<rect class="well" x="12" y="88" width="296" height="22" rx="3"/>
+<text x="18" y="102" class="mono">light-hc</text>
+<text x="162" y="102" class="mono">372</text>
+<text x="248" y="102" class="mono">fails</text>
+<rect class="well" x="12" y="114" width="296" height="22" rx="3"/>
+<text x="18" y="128" class="mono">light-cb</text>
+<text x="162" y="128" class="mono">1904</text>
+<text x="248" y="128" class="mono">holds</text>
+<rect class="well" x="12" y="140" width="296" height="22" rx="3"/>
+<text x="18" y="154" class="mono">light-cb-hc</text>
+<text x="162" y="154" class="mono">1993</text>
+<text x="248" y="154" class="mono">holds</text>
+<rect class="well" x="12" y="166" width="296" height="22" rx="3"/>
+<text x="18" y="180" class="mono">light-tri</text>
+<text x="162" y="180" class="mono">1013</text>
+<text x="248" y="180" class="mono">holds</text>
+<rect class="well" x="12" y="192" width="296" height="22" rx="3"/>
+<text x="18" y="206" class="mono">light-tri-hc</text>
+<text x="162" y="206" class="mono">1013</text>
+<text x="248" y="206" class="mono">holds</text>
+<rect class="well" x="12" y="218" width="296" height="22" rx="3"/>
+<text x="18" y="232" class="mono">dark</text>
+<text x="162" y="232" class="mono">486</text>
+<text x="248" y="232" class="mono">fails</text>
+<rect class="well" x="12" y="244" width="296" height="22" rx="3"/>
+<text x="18" y="258" class="mono">dark-cb</text>
+<text x="162" y="258" class="mono">1846</text>
+<text x="248" y="258" class="mono">holds</text>
+<rect class="well" x="12" y="270" width="296" height="22" rx="3"/>
+<text x="18" y="284" class="mono">dark-dimmed</text>
+<text x="162" y="284" class="mono">402</text>
+<text x="248" y="284" class="mono">fails</text>
+<rect class="well" x="12" y="296" width="296" height="22" rx="3"/>
+<text x="18" y="310" class="mono">dark-dimmed-hc</text>
+<text x="162" y="310" class="mono">418</text>
+<text x="248" y="310" class="mono">fails</text>
+</g></svg>
+<figcaption>The same column in the dark appearance; the specimen swatches are the subject theme's own.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="opposition">
+{
+  "arrive": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-opposition-across-themes",
+      "accept-routes-distinct",
+      "accept-tritanopia-trades",
+      "accept-no-theme-holds-both"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-numbers-agree-with-oracle"
+    ]
+  }
+}
+</script>
+</section>
+
+<section id="pairings" data-kind="screen" data-route="/pairings/:theme">
+<h3>pairings — the pairing sheet</h3>
+<p data-extract="reads">Reads: <a href="#Theme">Theme</a> (filter <code>id=eq.{param.theme}</code>) as the root; <a href="#Floor">Floor</a> (filter <code>applies=eq.ratio</code>, order <code>pos.asc</code>) for the two published thresholds; <a href="#Ratio">Ratio</a> (filter <code>theme=eq.{param.theme}</code>, order <code>pairing.asc</code>) for the drawn rows; <a href="#Pairing">Pairing</a> (order <code>pos.asc</code>) for the obligations themselves.</p>
+<p data-extract="mutations">Mutations: none. Each row is DRAWN as the text it would actually be, through a bound inline custom property carrying the ground and the ink — the same channel every specimen takes, for the same reason.</p>
+<div class="storyboard frames">
+<figure id="pairings-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The pairing sheet</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">dark-dimmed · 26 obligations</text>
+<text x="12" y="60" class="mono muted">450  normal text, WCAG AA      300  large text or UI</text>
+<rect class="well" x="12" y="74" width="296" height="22" rx="3"/>
+<text x="18" y="88" class="mono">emphasis-accent</text>
+<text x="162" y="88" class="mono">532</text>
+<text x="248" y="88" class="mono">holds / holds</text>
+<rect class="well" x="12" y="100" width="296" height="22" rx="3"/>
+<text x="18" y="114" class="mono">emphasis-danger</text>
+<text x="162" y="114" class="mono">483</text>
+<text x="248" y="114" class="mono">holds / holds</text>
+<rect class="well" x="12" y="126" width="296" height="22" rx="3"/>
+<text x="18" y="140" class="mono">muted-accent</text>
+<text x="162" y="140" class="mono">383</text>
+<text x="248" y="140" class="mono">misses / holds</text>
+<rect class="well" x="12" y="152" width="296" height="22" rx="3"/>
+<text x="18" y="166" class="mono">muted-danger</text>
+<text x="162" y="166" class="mono">364</text>
+<text x="248" y="166" class="mono">misses / holds</text>
+<rect class="well" x="12" y="178" width="296" height="22" rx="3"/>
+<text x="18" y="192" class="mono">muted-done</text>
+<text x="162" y="192" class="mono">333</text>
+<text x="248" y="192" class="mono">misses / holds</text>
+<rect class="well" x="12" y="204" width="296" height="22" rx="3"/>
+<text x="18" y="218" class="mono">muted-success</text>
+<text x="162" y="218" class="mono">434</text>
+<text x="248" y="218" class="mono">misses / holds</text>
+<rect class="well" x="12" y="230" width="296" height="22" rx="3"/>
+<text x="18" y="244" class="mono">default-default</text>
+<text x="162" y="244" class="mono">1548</text>
+<text x="248" y="244" class="mono">holds / holds</text>
+<rect class="well" x="12" y="256" width="296" height="22" rx="3"/>
+<text x="18" y="270" class="mono">muted-default</text>
+<text x="162" y="270" class="mono">1466</text>
+<text x="248" y="270" class="mono">holds / holds</text>
+<text x="12" y="330" class="warn">12 muted rows miss 4.5:1 and clear 3:1 — a stated departure</text>
+</g></svg>
+<figcaption>Primer's published matrix for one theme, each row drawn as the text it would be, each carrying a verdict against 4.5:1 and one against 3:1. On the dimmed ground every muted row misses the higher.</figcaption>
+</figure>
+<figure id="pairings-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The pairing sheet</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">dark-dimmed · 26 obligations</text>
+<rect class="well" x="12" y="74" width="296" height="22" rx="3"/>
+<text x="18" y="88" class="mono">emphasis-accent</text>
+<text x="162" y="88" class="mono">532</text>
+<text x="248" y="88" class="mono">holds / holds</text>
+<rect class="well" x="12" y="100" width="296" height="22" rx="3"/>
+<text x="18" y="114" class="mono">emphasis-danger</text>
+<text x="162" y="114" class="mono">483</text>
+<text x="248" y="114" class="mono">holds / holds</text>
+<rect class="well" x="12" y="126" width="296" height="22" rx="3"/>
+<text x="18" y="140" class="mono">muted-accent</text>
+<text x="162" y="140" class="mono">383</text>
+<text x="248" y="140" class="mono">misses / holds</text>
+<rect class="well" x="12" y="152" width="296" height="22" rx="3"/>
+<text x="18" y="166" class="mono">muted-danger</text>
+<text x="162" y="166" class="mono">364</text>
+<text x="248" y="166" class="mono">misses / holds</text>
+<rect class="well" x="12" y="178" width="296" height="22" rx="3"/>
+<text x="18" y="192" class="mono">muted-done</text>
+<text x="162" y="192" class="mono">333</text>
+<text x="248" y="192" class="mono">misses / holds</text>
+<rect class="well" x="12" y="204" width="296" height="22" rx="3"/>
+<text x="18" y="218" class="mono">muted-success</text>
+<text x="162" y="218" class="mono">434</text>
+<text x="248" y="218" class="mono">misses / holds</text>
+<rect class="well" x="12" y="230" width="296" height="22" rx="3"/>
+<text x="18" y="244" class="mono">default-default</text>
+<text x="162" y="244" class="mono">1548</text>
+<text x="248" y="244" class="mono">holds / holds</text>
+<rect class="well" x="12" y="256" width="296" height="22" rx="3"/>
+<text x="18" y="270" class="mono">muted-default</text>
+<text x="162" y="270" class="mono">1466</text>
+<text x="248" y="270" class="mono">holds / holds</text>
+</g></svg>
+<figcaption>The sheet in the dark appearance. The drawn text is the subject theme's ink on the subject theme's ground, so the chrome's appearance moves nothing that is measured.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="pairings">
+{
+  "arrive": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-pairing-matrix-drawn",
+      "accept-both-thresholds-printed",
+      "accept-dimmed-muted-departure"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-dark-twin"
+    ]
+  }
+}
+</script>
+</section>
+
+<section id="tokens" data-kind="screen" data-route="/tokens/:theme">
+<h3>tokens — the declarations</h3>
+<p data-extract="reads">Reads: <a href="#Theme">Theme</a> (filter <code>id=eq.{param.theme}</code>) as the root; <a href="#Census">Census</a> (order <code>id.asc</code>) at the head, each row a reduce over the rows below it; <a href="#Token">Token</a> (filter <code>theme=eq.{param.theme}</code>, order <code>name.asc</code>) for every column the audit reads.</p>
+<p data-extract="mutations">Mutations: none, and the screen offers none — nothing in this app writes to a token, a theme or a reading.</p>
+<div class="storyboard frames">
+<figure id="tokens-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The declarations</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">light — shown entire</text>
+<text x="12" y="62" class="mono">2376  token rows this app holds</text>
+<text x="12" y="78" class="mono">474   the reader and contrast axes never move these</text>
+<text x="12" y="94" class="mono">20    aliases in all fourteen that retarget</text>
+<text x="12" y="110" class="mono">29    worst all-pairs chart separation, at hundredths</text>
+<rect class="well" x="12" y="132" width="296" height="22" rx="3"/>
+<text x="18" y="146" class="mono">bgColor-default</text>
+<text x="162" y="146" class="mono">literal</text>
+<text x="248" y="146" class="mono">#ffffff</text>
+<rect class="well" x="12" y="158" width="296" height="22" rx="3"/>
+<text x="18" y="172" class="mono">bgColor-open-muted</text>
+<text x="162" y="172" class="mono">alias</text>
+<text x="248" y="172" class="mono">#ddf4ff</text>
+<rect class="well" x="12" y="184" width="296" height="22" rx="3"/>
+<text x="18" y="198" class="mono">fgColor-closed</text>
+<text x="162" y="198" class="mono">alias</text>
+<text x="248" y="198" class="mono">#59636e</text>
+<rect class="well" x="12" y="210" width="296" height="22" rx="3"/>
+<text x="18" y="224" class="mono">diffBlob-add…-fgColor</text>
+<text x="162" y="224" class="mono">alias</text>
+<text x="248" y="224" class="mono">#1f2328</text>
+<rect class="well" x="12" y="236" width="296" height="22" rx="3"/>
+<text x="18" y="250" class="mono">data-blue-…-emphasis</text>
+<text x="162" y="250" class="mono">alias</text>
+<text x="248" y="250" class="mono">#006edb</text>
+<text x="12" y="300" class="muted">name · kind · raw · chain · resolved · composited · type · description</text>
+</g></svg>
+<figcaption>Every column the audit reads, and the census above it as reduces over the rows below. The closure rule is stated on the screen, so nothing here presents itself as the whole system.</figcaption>
+</figure>
+<figure id="tokens-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The declarations</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">light — shown entire</text>
+<rect class="well" x="12" y="132" width="296" height="22" rx="3"/>
+<text x="18" y="146" class="mono">bgColor-default</text>
+<text x="162" y="146" class="mono">literal</text>
+<text x="248" y="146" class="mono">#ffffff</text>
+<rect class="well" x="12" y="158" width="296" height="22" rx="3"/>
+<text x="18" y="172" class="mono">bgColor-open-muted</text>
+<text x="162" y="172" class="mono">alias</text>
+<text x="248" y="172" class="mono">#ddf4ff</text>
+<rect class="well" x="12" y="184" width="296" height="22" rx="3"/>
+<text x="18" y="198" class="mono">fgColor-closed</text>
+<text x="162" y="198" class="mono">alias</text>
+<text x="248" y="198" class="mono">#59636e</text>
+<rect class="well" x="12" y="210" width="296" height="22" rx="3"/>
+<text x="18" y="224" class="mono">diffBlob-add…-fgColor</text>
+<text x="162" y="224" class="mono">alias</text>
+<text x="248" y="224" class="mono">#1f2328</text>
+<rect class="well" x="12" y="236" width="296" height="22" rx="3"/>
+<text x="18" y="250" class="mono">data-blue-…-emphasis</text>
+<text x="162" y="250" class="mono">alias</text>
+<text x="248" y="250" class="mono">#006edb</text>
+</g></svg>
+<figcaption>The declarations in the dark appearance; the composited column is a figure and not a swatch.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="tokens">
+{
+  "arrive": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-declarations-every-column",
+      "accept-closure-stated",
+      "accept-alias-resolved-in-theme",
+      "accept-value-class-changes"
+    ]
+  },
+  "census": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-chart-palette-invariant",
+      "accept-fixture-parsed-not-typed"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-quotation-pinned"
+    ]
+  }
+}
+</script>
+</section>
+
+<section id="spec" data-kind="screen" data-route="/spec">
+<h3>spec — the specification</h3>
+<p data-extract="reads">Reads: <a href="#Claim">Claim</a> (order <code>pos.asc</code>) for the three columns; <a href="#Reader">Reader</a> and <a href="#Floor">Floor</a> (order <code>pos.asc</code>) for the method; <a href="#Segment">Segment</a> (order <code>pos.asc</code>) for the rule the pair roster is derived by; <a href="#Census">Census</a> (order <code>id.asc</code>) for the count and the reduction of it.</p>
+<p data-extract="mutations">Mutations: none. This screen is load-bearing for the whole app rather than an appendix to it: the app grades a vendor and disagrees with it in two places, and a missing citation would turn a finding into an accusation.</p>
+<div class="storyboard frames">
+<figure id="spec-populated" data-kind="state" data-state="populated">
+<svg viewBox="0 0 320 440" width="240"><g>
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The specification</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">the vendor's words, this app's reading, the verdict</text>
+<text x="12" y="66" class="sect">CLAIM</text>
+<rect class="well" x="12" y="74" width="296" height="46" rx="3"/>
+<text x="18" y="90" class="mono">| --bgColor-*-emphasis | --fgColor-onEmphasis |</text>
+<text x="18" y="104" class="mono">| --bgColor-*-muted    | --fgColor-{semantic} |</text>
+<text x="18" y="116" class="mono muted">quoted verbatim from DESIGN_TOKENS_GUIDE.md</text>
+<text x="12" y="142" class="sect">READING</text>
+<text x="12" y="158" class="muted">26 obligations per theme; the roster is the matrix.</text>
+<text x="12" y="184" class="sect">VERDICT</text>
+<text x="12" y="200" class="warn">the tokens do not say which threshold a muted ground takes</text>
+<line class="rule" x1="12" x2="308" y1="216" y2="216"/>
+<text x="12" y="238" class="sect">READERS</text>
+<text x="12" y="254" class="mono">deuteranopia  1.0  3673 8606 -2280 …</text>
+<text x="12" y="270" class="mono muted">Machado, Oliveira &amp; Fernandes 2009</text>
+<text x="12" y="296" class="sect">FLOORS</text>
+<text x="12" y="312" class="mono">600  separation  the validator’s CVD_FLOOR</text>
+<text x="12" y="338" class="sect">LANGUAGE FINDINGS</text>
+<text x="12" y="354" class="muted">one identity, two appearances — measured by asking cue</text>
+</g></svg>
+<figcaption>The claim, the reading and the verdict in three columns and never merged. A published sentence is set as a quotation; a language finding carries the probe that measured it.</figcaption>
+</figure>
+<figure id="spec-populated-dark" data-kind="state" data-state="populated-dark">
+<svg viewBox="0 0 320 440" width="240"><g class="dark">
+<rect class="page" width="320" height="440"/>
+<text x="12" y="18" class="h">The specification</text>
+<line class="rule" x1="0" x2="320" y1="26" y2="26"/>
+<text x="12" y="44" class="muted">the vendor's words, this app's reading, the verdict</text>
+<text x="12" y="66" class="sect">CLAIM</text>
+<rect class="well" x="12" y="74" width="296" height="46" rx="3"/>
+<text x="18" y="90" class="mono">| --bgColor-*-emphasis | --fgColor-onEmphasis |</text>
+<text x="12" y="142" class="sect">READING</text>
+<text x="12" y="184" class="sect">VERDICT</text>
+</g></svg>
+<figcaption>The specification in the dark appearance. The three columns keep their order and are never merged.</figcaption>
+</figure>
+</div>
+<script type="application/json" data-kind="paths" data-of="spec">
+{
+  "arrive": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-spec-three-columns",
+      "accept-spec-verbatim",
+      "accept-spec-method-stated"
+    ]
+  },
+  "findings": {
+    "states": [
+      "populated"
+    ],
+    "accepts": [
+      "accept-findings-are-measured",
+      "accept-one-identity-two-appearances",
+      "accept-type-roles-named",
+      "accept-type-role-shadows-rung"
+    ]
+  },
+  "night": {
+    "states": [
+      "populated",
+      "populated-dark"
+    ],
+    "accepts": [
+      "accept-every-anti-join",
+      "accept-anti-joins-fail-loudly"
+    ]
+  }
+}
+</script>
+</section>
+
+
+<h2 id="flows">Flows</h2>
+
+
+<section id="open-audit" data-kind="flow">
+<h3>open-audit — a theme's row opens its audit</h3>
+<div class="mermaid">
+graph LR
+  A[a theme row on the roster] --> B[the anchor names #/theme/&lt;id&gt;]
+  B --> C[the route parameter pins the root read]
+  C --> D[Theme id=eq.&lt;theme&gt;]
+  D --> E[every specimen paints from that theme's rows]
+</div>
+</section>
+
+<section id="open-opposition" data-kind="flow">
+<h3>open-opposition — an opposition name opens its column</h3>
+<div class="mermaid">
+graph LR
+  A[an opposition heading] --> B[the anchor names #/opposition/&lt;id&gt;]
+  B --> C[Reading opposition=eq.&lt;id&gt; ordered by theme]
+  C --> D[fourteen themes in one column]
+</div>
+</section>
+
+<section id="pick-reader" data-kind="flow">
+<h3>pick-reader — the reader control repaints the specimens</h3>
+<div class="mermaid">
+graph LR
+  A[a reader button] --> B[form submit, upsert on the one Cursor row]
+  B --> C[Cursor.reader written]
+  C --> D[focus wakes: its region reads that row]
+  D --> E[Reading.painted patched, yes on one reading per pair]
+  E --> F[the specimen region re-filters and the same elements repaint]
+</div>
+</section>
+
+
+<h2 id="handlers">Handlers</h2>
+
+
+<section id="audit" data-kind="handler" data-of="roster">
+<h3>audit — the app's own colour-vision arithmetic</h3>
+<p>Reads eleven collections and writes four. It carries its own sRGB-to-linear, its own Machado matrix multiply off the <a href="#Reader">Reader</a> rows, its own OKLab and its own WCAG relative luminance, and it shares not a line with <code>tests/ground-truth.ts</code>. The one quantity it does NOT compute is the compositing: it reads <code>Token.composited</code>, and the fixture check holds that column equal to the oracle's own compositing of the raw declaration. That is a stated departure, not an oversight — both routes read the ground from the same row, and a real page composites over whatever is behind.</p>
+</section>
+
+<section id="focus" data-kind="handler" data-of="roster">
+<h3>focus — which reading the specimens wear</h3>
+<p>A separate seat, because it depends on the cursor and on nothing else: moving the reader repaints the specimens without re-folding a thousand separations. It owns <code>Reading.painted</code> and writes no other column.</p>
+</section>
+
+
+<h2 id="tests">Tests</h2>
+
+
+<p id="test-fixture" data-kind="test" data-of="Token" data-accepts="accept-fixture-parsed-not-typed accept-quotation-pinned accept-alias-resolved-in-theme accept-alpha-composited accept-closure-stated">
+<strong>test-fixture</strong> — Every seeded row against a SECOND parse of the vendored bytes. <code>fixtures/generate.ts</code> carries its own reader and <code>tests/ground-truth.ts</code> carries another, so this is a comparison of two parses and not of a value with itself. It also holds the app's fixture pin equal to the platform's <code>source.json</code> integrity, and hashes the quotation IN THE SUITE, so editing the fixture cannot move its own target.
+</p>
+
+<p id="test-separation" data-kind="test" data-of="Reading" data-accepts="accept-numbers-agree-with-oracle accept-four-readings-per-pair accept-delta-from-base accept-light-fails-red-green accept-high-contrast-orthogonal accept-colorblind-improves accept-tritanopia-trades accept-no-theme-holds-both accept-dimmed-worst accept-identical-pairs-ungraded accept-pairs-derived-not-listed">
+<strong>test-separation</strong> — Mounts each theme's audit off the seed with no live service, reads every printed separation and verdict off the rendered text, and asserts equality with the ground truth. Then the per-theme verdict distribution, which is the anti-vacuity core: a suite asserting "all pass" is red on day one and one asserting "all fail" is red too. Then each of the four findings as a DIRECTION rather than a constant.
+</p>
+
+<p id="test-pairing" data-kind="test" data-of="Ratio" data-accepts="accept-pairing-matrix-drawn accept-both-thresholds-printed accept-dimmed-muted-departure">
+<strong>test-pairing</strong> — Every ratio against the ground truth, both threshold verdicts present on every row, and the dimmed ground's twelve muted misses named individually — a case that goes red if the app quietly picks a threshold.
+</p>
+
+<p id="test-census" data-kind="test" data-of="Census" data-accepts="accept-chart-palette-invariant accept-value-class-changes accept-declarations-every-column">
+<strong>test-census</strong> — The reader axis stops at the semantic layer. One measured fact, one refusal to grade, with the number as the reason.
+</p>
+
+<p id="test-coverage" data-kind="test" data-of="roster" data-accepts="accept-every-anti-join accept-anti-joins-fail-loudly accept-findings-are-measured accept-one-identity-two-appearances accept-twin-closure-asymmetry accept-type-roles-named accept-type-role-shadows-rung accept-spec-three-columns accept-spec-verbatim accept-spec-method-stated">
+<strong>test-coverage</strong> — Both anti-joins: every ground-truth reading is shown by some screen, and every number rendered on any screen is graded by some obligation. Each is driven to red on a doctored input by its own case — a screen with a number removed, a roster with a pair dropped — so a check that has stopped grading anything cannot stay green. It also runs every language finding's probe through <code>cue</code> and holds cue's answer to the reading beside it.
+</p>
+
+<p id="test-paint" data-kind="test" data-of="theme" data-accepts="accept-paint-is-graded accept-specimens-are-elements accept-simulate-repaints accept-adopted-pair-agrees accept-verdict-is-a-word accept-dark-twin">
+<strong>test-paint</strong> — The spine's clamp, and the only check that can see a blank page. One <code>page.evaluate</code> per screen collects <code>getComputedStyle</code> on both specimen elements of every graded opposition, and the ΔE is recomputed from those. It reads a PAINTED property, never the custom property, because <code>getPropertyValue</code> returns the unresolved two-argument form. Narrowing it to a sample of themes would put the spine back to being a fixture grade with a UI.
+</p>
+
+<p id="test-roster" data-kind="test" data-of="roster" data-accepts="accept-roster-names-the-fourteen accept-roster-settles-cold accept-missing-cells-are-rows accept-orphan-grounds-marked accept-adopted-pair-named accept-read-only accept-answers-without-network accept-tabular-figures accept-no-numeric-motion">
+<strong>test-roster</strong> — The roster lands on the fourteen with their scores already computed, the four unpublished cells and two orphan themes are rows, and the mount makes no write to any seeded collection.
+</p>
+
+<p id="test-routes" data-kind="test" data-of="opposition" data-accepts="accept-theme-opens-audit accept-routes-distinct accept-opposition-across-themes">
+<strong>test-routes</strong> — Two addresses that name different themes never paint the same specimens — the check a <code>keep: 1</code> parametrized route would fail while looking right.
+</p>
+
+
+<h2 id="decisions">Decisions</h2>
+
+
+<p id="decision-01" data-kind="decision"><strong>01 — everything is tab, and the grader is the reason.</strong>
+No Postgres, no Electric, no conduit, no bloblang, no migration, no policy, no publication, no pipeline. The reason is not the size: for an app whose oracle IS arithmetic, putting the arithmetic in a seat no fixture harness reaches destroys the grader before it is written. A reduce at the mutation seat is the one seat an off-disk mount executes. Nothing is at <code>device</code> either — a device collection persists across program versions and nothing backfills a new column, and this schema is certain to move.
+</p>
+
+<p id="decision-02" data-kind="decision"><strong>02 — the seat is pinned on a row declared last.</strong>
+A data-on-mutation seat wakes when its OWN region's read changes and at no other time. The seed is written collection by collection when the tab store is first opened, so a seat pinned on <a href="#Token">Token</a> would fold over a world with no <a href="#Reader">Reader</a> rows in it and produce nothing, with nothing red. <a href="#Fold">Fold</a> is declared last and carries one row, so the seat's wake is the last thing the seeding does.
+</p>
+
+<p id="decision-03" data-kind="decision"><strong>03 — the arithmetic is written twice and the two files share nothing.</strong>
+<code>shell/handlers/audit.js</code> and <code>tests/ground-truth.ts</code> both implement sRGB-to-linear, the Machado matrix multiply, OKLab and the Euclidean distance, from the published model rather than from each other. A shared helper would turn the agreement into a tautology, and the agreement is the grade. The same reasoning splits <code>fixtures/generate.ts</code> from the oracle's parser: the fixture check compares two parses of the same bytes.
+</p>
+
+<p id="decision-04" data-kind="decision"><strong>04 — the separation is not finished until a browser has painted it.</strong>
+The five checks that run at <code>test</code> mount into linkedom and compute no style, so none of them can tell a painted specimen from an empty box. <code>paint</code> reads <code>getComputedStyle</code> off the specimen elements over the running cluster and recomputes the ΔE from what was resolved. The dark half is reached the way the platform resolves appearance — through the context's colour scheme — never by toggling a class.
+</p>
+
+<p id="decision-05" data-kind="decision"><strong>05 — the matrix is nine integer columns at ten-thousandths.</strong>
+A reduce has no matrix library, so the model has to arrive as data. Integers rather than floats because the two routes are held to agree EXACTLY at hundredths, and a float column would put a rounding argument between them. It also puts the model on the specification screen, where a reviewer can check that the app simulates what it says it simulates.
+</p>
+
+<p id="decision-06" data-kind="decision"><strong>06 — a pair whose two members never differ is shown and not graded.</strong>
+Three of the twenty-two pairs the segment rule admits resolve to the same bytes in all fourteen themes: the diff-blob inks. The ground carries that opposition and the ink does not. Grading them would report a zero separation as a failure in every theme and say nothing about any of them, and dropping them silently would hide a fact about the system. They are rows with their reason on them.
+</p>
+
+<p id="decision-07" data-kind="decision"><strong>07 — the simulated colours are columns on the reading, not a second set of rows.</strong>
+The reader control has to repaint the SAME elements — a second set of pre-simulated rows swapped in would make the simulation the fixture's and not the app's, and <code>paint</code> would be grading a transcription. So each reading carries the two colours as that reader sees them, computed by the app's own arithmetic, and the picker moves which reading is painted.
+</p>
+
+<p id="decision-08" data-kind="decision"><strong>08 — the claim and the reading are different columns, and the probe is a third.</strong>
+<code>says</code> is the vendor's own sentence, quoted out of the vendored guide by a substring match that raises if the guide does not carry it. <code>reads</code> is what this app computes. They sit in adjacent cells and are never merged, so rewording the app's reading to match the specification would be a diff on a column that is supposed to be a quotation. <code>probe</code> is empty exactly where the claim is the vendor's, and carries the unification for every language finding — which is the difference between this and a hand-written table of things a vocabulary cannot say.
+</p>
+
+<p id="decision-09" data-kind="decision"><strong>09 — the chart palette is counted and declined, with the number as the reason.</strong>
+Primer's seventeen categorical chart colours are constant within each ground across all fourteen themes, and their worst all-pairs separation is under a third of a unit for every reader. So the reader axis never reaches them, and grading a seventeen-slot categorical set would be vacuous in the other direction — the same failure in all fourteen themes. The app records the number rather than grading it.
+</p>
+
+<p id="decision-10" data-kind="decision"><strong>10 — no verdict is carried by colour, and that is a consequence rather than a taste.</strong>
+The app's own audit found no theme in its subject that survives all three readers. A tool that encoded its answer in a hue would therefore be unreadable to one of the three readers it serves, and its own subject is the proof. Every verdict on every screen is a word, and <code>paint</code> asserts that no two verdict elements differ only in computed colour.
+</p>
+
+
+</body>
+</html>

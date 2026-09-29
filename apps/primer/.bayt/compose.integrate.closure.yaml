@@ -1,0 +1,14 @@
+# generated from bayt.cue — do not edit
+include:
+- path: ../../../apps/primer/.bayt/compose.integrate.yaml
+  required: false
+- path: ../../../apps/primer/.bayt/compose.launch.yaml
+  required: false
+- path: ../../../apps/primer/.bayt/compose.caddy.yaml
+  required: false
+services:
+  bayt:
+    extends:
+      file: ./compose.integrate.yaml
+      service: apps_primer-integrate
+    scale: 1

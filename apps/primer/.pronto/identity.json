@@ -1,0 +1,752 @@
+{
+  "0x9ea139f998cdd3b6": {
+    "name": "token",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "theme",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "name",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "raw",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "kind",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "target",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "chain",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "resolved",
+        "type": "text",
+        "retired": false
+      },
+      "9": {
+        "name": "composited",
+        "type": "text",
+        "retired": false
+      },
+      "10": {
+        "name": "type",
+        "type": "text",
+        "retired": false
+      },
+      "11": {
+        "name": "describes",
+        "type": "text",
+        "retired": false
+      },
+      "12": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xd0b4b4b79ef46913": {
+    "name": "theme",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "ground",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "reader",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "contrast",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "base",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "wearable",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "twin",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "wears",
+        "type": "text",
+        "retired": false
+      },
+      "9": {
+        "name": "bg_default",
+        "type": "text",
+        "retired": false
+      },
+      "10": {
+        "name": "bg_muted",
+        "type": "text",
+        "retired": false
+      },
+      "11": {
+        "name": "border_default",
+        "type": "text",
+        "retired": false
+      },
+      "12": {
+        "name": "fg_default",
+        "type": "text",
+        "retired": false
+      },
+      "13": {
+        "name": "fg_muted",
+        "type": "text",
+        "retired": false
+      },
+      "14": {
+        "name": "fg_accent",
+        "type": "text",
+        "retired": false
+      },
+      "15": {
+        "name": "fg_danger",
+        "type": "text",
+        "retired": false
+      },
+      "16": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xdd09534d00f69f0e": {
+    "name": "cell",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "ground",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "reader",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "contrast",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "theme",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "published",
+        "type": "text",
+        "retired": false
+      }
+    }
+  },
+  "0xe042f92c45550598": {
+    "name": "segment",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "left",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "right",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "says",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xe6c0ddea6193d176": {
+    "name": "reader",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "name",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "says",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "severity",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "m00",
+        "type": "int",
+        "retired": false
+      },
+      "6": {
+        "name": "m01",
+        "type": "int",
+        "retired": false
+      },
+      "7": {
+        "name": "m02",
+        "type": "int",
+        "retired": false
+      },
+      "8": {
+        "name": "m10",
+        "type": "int",
+        "retired": false
+      },
+      "9": {
+        "name": "m11",
+        "type": "int",
+        "retired": false
+      },
+      "10": {
+        "name": "m12",
+        "type": "int",
+        "retired": false
+      },
+      "11": {
+        "name": "m20",
+        "type": "int",
+        "retired": false
+      },
+      "12": {
+        "name": "m21",
+        "type": "int",
+        "retired": false
+      },
+      "13": {
+        "name": "m22",
+        "type": "int",
+        "retired": false
+      },
+      "14": {
+        "name": "citation",
+        "type": "text",
+        "retired": false
+      },
+      "15": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xdb2753f6e374e82c": {
+    "name": "floor",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "value",
+        "type": "int",
+        "retired": false
+      },
+      "3": {
+        "name": "applies",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "source",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "says",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xbe7770652319916e": {
+    "name": "opposition",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "segment",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "family",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "left_token",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "right_token",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "specimen",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "specimen_says",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "graded",
+        "type": "text",
+        "retired": false
+      },
+      "9": {
+        "name": "declined",
+        "type": "text",
+        "retired": false
+      },
+      "10": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xcc4255a194c34096": {
+    "name": "pairing",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "ground_token",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "ink_token",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "semantic",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "klass",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "threshold_filed",
+        "type": "int",
+        "retired": false
+      },
+      "7": {
+        "name": "ambiguous",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0x9167066063df7222": {
+    "name": "claim",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "kind",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "says",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "reads",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "departs",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "probe",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xc820621d8959b931": {
+    "name": "reading",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "opposition",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "specimen",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "theme",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "reader",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "left_color",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "right_color",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "left_seen",
+        "type": "text",
+        "retired": false
+      },
+      "9": {
+        "name": "right_seen",
+        "type": "text",
+        "retired": false
+      },
+      "10": {
+        "name": "ground",
+        "type": "text",
+        "retired": false
+      },
+      "11": {
+        "name": "separation",
+        "type": "int",
+        "retired": false
+      },
+      "12": {
+        "name": "floor",
+        "type": "int",
+        "retired": false
+      },
+      "13": {
+        "name": "verdict",
+        "type": "text",
+        "retired": false
+      },
+      "14": {
+        "name": "delta",
+        "type": "int",
+        "retired": false
+      },
+      "15": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      },
+      "16": {
+        "name": "painted",
+        "type": "text",
+        "retired": false
+      }
+    }
+  },
+  "0xd807264cbe6f3aff": {
+    "name": "ratio",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "pairing",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "theme",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "ground_color",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "ink_color",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "ratio",
+        "type": "int",
+        "retired": false
+      },
+      "7": {
+        "name": "verdict_text",
+        "type": "text",
+        "retired": false
+      },
+      "8": {
+        "name": "verdict_ui",
+        "type": "text",
+        "retired": false
+      },
+      "9": {
+        "name": "ambiguous",
+        "type": "text",
+        "retired": false
+      }
+    }
+  },
+  "0xd61b9890d9ff4b05": {
+    "name": "score",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "theme",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "reader",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "holds",
+        "type": "int",
+        "retired": false
+      },
+      "5": {
+        "name": "fails",
+        "type": "int",
+        "retired": false
+      },
+      "6": {
+        "name": "improved",
+        "type": "int",
+        "retired": false
+      },
+      "7": {
+        "name": "regressed",
+        "type": "int",
+        "retired": false
+      },
+      "8": {
+        "name": "unchanged",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xd8ea0b6d55581c28": {
+    "name": "census",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "fact",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "count",
+        "type": "int",
+        "retired": false
+      },
+      "4": {
+        "name": "says",
+        "type": "text",
+        "retired": false
+      }
+    }
+  },
+  "0xad4a73ccf47bbbde": {
+    "name": "type_rung",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "purpose",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "value",
+        "type": "text",
+        "retired": false
+      },
+      "4": {
+        "name": "resolved",
+        "type": "text",
+        "retired": false
+      },
+      "5": {
+        "name": "dimension",
+        "type": "text",
+        "retired": false
+      },
+      "6": {
+        "name": "coincides",
+        "type": "text",
+        "retired": false
+      },
+      "7": {
+        "name": "pos",
+        "type": "int",
+        "retired": false
+      }
+    }
+  },
+  "0xfedc25dbef0bb95c": {
+    "name": "cursor",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "reader",
+        "type": "text",
+        "retired": false
+      }
+    }
+  },
+  "0x8bd02d636155ecc2": {
+    "name": "fold",
+    "fields": {
+      "1": {
+        "name": "id",
+        "type": "text",
+        "retired": false
+      },
+      "2": {
+        "name": "note",
+        "type": "text",
+        "retired": false
+      },
+      "3": {
+        "name": "error",
+        "type": "text",
+        "retired": false
+      }
+    }
+  }
+}
